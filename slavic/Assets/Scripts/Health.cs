@@ -51,13 +51,17 @@ public class Health : MonoBehaviour
                     Instantiate(corpse, transform.position, aimRotation);
                 }
             }
-            if (audioSource != null)
+            if (change < 0)
             {
-                if (change < 0 && woundSound != null)
+                if (audioSource != null && woundSound != null)
                 {
                     audioSource.PlayOneShot(woundSound);
                 }
-                else if (healSound != null)
+                //TODO: Jacek efekty zranienia
+            }
+            else
+            {
+                if (audioSource != null && healSound != null)
                 {
                     audioSource.PlayOneShot(healSound);
                 }

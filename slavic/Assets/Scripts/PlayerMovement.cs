@@ -13,8 +13,11 @@ public class PlayerMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        playerRig = controlledMinion.GetComponent<Rigidbody>();
-        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        if (controlledMinion != null)
+        {
+            playerRig = controlledMinion.GetComponent<Rigidbody>();
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        }
 	}
 
     //FUTURE : We will change it to using MinionControl

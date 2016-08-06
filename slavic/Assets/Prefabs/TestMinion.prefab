@@ -61,7 +61,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010008017624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0.33671764, y: 3, z: 4.936822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -224,11 +224,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9047eb2bf7e87447a9181c1b3f1c3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetResolvePolicy: 0
+  targetResolvePolicy: 1
   patrolEndingPolicy: 2
   standByTime: 1
   searchTime: 1
-  defendChaseDistance: 1
+  defendChaseDistance: 5
   destinationTolerence: 1
   patrolPoints:
   - {x: 0, y: 1, z: 0}
