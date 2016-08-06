@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
 	public float initialForce;
 	private float flyingTime;
 	public float flyingTimeLimit;
+    public Team team;
 
 	void Start () 
 	{
