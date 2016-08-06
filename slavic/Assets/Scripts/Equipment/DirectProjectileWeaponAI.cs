@@ -19,7 +19,7 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
         GameplayManager gameplayManager = FindObjectOfType<GameplayManager>();
         teamManager = gameplayManager.teamManager;
 		initializeTargetArray ();
-        base.equipmentInfo = weapon;
+        base.equipmentPiece = weapon;
 	}
 
 	void Update()
