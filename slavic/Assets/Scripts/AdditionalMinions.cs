@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class AdditionalMinions : MonoBehaviour {
 
-    public List<MinionControll> minions; 
+    public List<MinionControll> minions;
+    public GameObject[] minionsPrefabs;
         
 	// Use this for initialization
 	void Start () {
@@ -14,8 +15,12 @@ public class AdditionalMinions : MonoBehaviour {
     {
         if (other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControlledMinion)
         {
-            Instantiate();
-            FindObjectOfType<GameplayManager>().squadManager.AddSquadMember();
+            int numberOfMinions = Random.Range(1, 3);
+            for (int i = 0; i < numberOfMinions; i++)
+            {
+                var temp = (GameObject) Instantiate(minionsPrefabs[Random.Range(0, 2)], transform.position, transform.rotation) as GameObject;
+                FindObjectOfType<GameplayManager>().squadManager.AddSquadMember(temp.GetComponent<MinionControll>());
+            }   
             Destroy(gameObject);
         }
     }
