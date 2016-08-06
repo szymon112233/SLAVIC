@@ -18,10 +18,7 @@ public class IdleStatesRandomChanges : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {        
-
-        Debug.Log("Zdarzenie");
-           
+    {           
 	    if( Random.Range(0f, 1f) < changeStateChance )
         {
             if(Random.Range(0f,1f) < changesToIdle2Chance)
