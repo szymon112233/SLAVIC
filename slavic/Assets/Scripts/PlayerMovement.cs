@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
     public MinionControll controlledMinion;
-    private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
+    private Vector3 currentCameraPositionOffset;
     private Vector3 movementDirection;
     public Transform currentCamera;
     public float speed = 500f;
@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
             playerRig = controlledMinion.GetComponent<Rigidbody>();
             controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
         }
+        currentCameraPositionOffset = currentCamera.position - playerRig.transform.position;
 	}
 
     //FUTURE : We will change it to using MinionControl
