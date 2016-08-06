@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6762d9a4d978bcd4887e715d1b7c4260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corpse: {fileID: 0}
+  corpse: {fileID: 1000014151634702, guid: 2b5df19e651031048b854cf8d7a36a43, type: 2}
   MAX_HEALTH: 5
   REGENERATION: 0
 --- !u!136 &136000012736113998

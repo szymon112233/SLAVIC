@@ -53,8 +53,7 @@ public class Health : MonoBehaviour
                 {
                     Vector3 up = new Vector3(transform.position.x, 10, transform.position.z);
                     Vector3 directionToAim = (transform.position - up).normalized;
-                    Quaternion aimRotation = Quaternion.LookRotation(directionToAim);
-                    Instantiate(corpse, transform.position, aimRotation);
+                    Instantiate(corpse, transform.position, transform.rotation);
                 }
             }
             if (change < 0)
