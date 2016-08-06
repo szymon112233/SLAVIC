@@ -1203,11 +1203,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010673382108, guid: 6556e4622487a5d40bb48ec4d74bf4cf,
-        type: 2}
-      propertyPath: playerControlledMinion
-      value: 
-      objectReference: {fileID: 1112012752}
     - target: {fileID: 114000012551069150, guid: 6556e4622487a5d40bb48ec4d74bf4cf,
         type: 2}
       propertyPath: controlledMinion
@@ -1215,9 +1210,14 @@ Prefab:
       objectReference: {fileID: 1112012752}
     - target: {fileID: 114000010673382108, guid: 6556e4622487a5d40bb48ec4d74bf4cf,
         type: 2}
-      propertyPath: squadManager
+      propertyPath: playerControlledMinion
       value: 
-      objectReference: {fileID: 1830850340}
+      objectReference: {fileID: 1112012752}
+    - target: {fileID: 114000012551069150, guid: 6556e4622487a5d40bb48ec4d74bf4cf,
+        type: 2}
+      propertyPath: speed
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6556e4622487a5d40bb48ec4d74bf4cf, type: 2}
   m_IsPrefabParent: 0
@@ -1641,12 +1641,6 @@ Transform:
   - {fileID: 134852597}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &1830850340 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000013444488220, guid: 6556e4622487a5d40bb48ec4d74bf4cf,
-    type: 2}
-  m_PrefabInternal: {fileID: 1165940940}
-  m_Script: {fileID: 11500000, guid: 1cc84da34abbf024986b62cb78904aba, type: 3}
 --- !u!1001 &1836878092
 Prefab:
   m_ObjectHideFlags: 0

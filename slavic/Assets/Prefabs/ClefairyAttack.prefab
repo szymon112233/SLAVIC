@@ -139,7 +139,7 @@ MonoBehaviour:
   damage: 3
   AOE: 3
   initialForce: 10
-  flyingTimeLimit: 8
+  flyingTimeLimit: 0.3
 --- !u!114 &114000013033679772
 MonoBehaviour:
   m_ObjectHideFlags: 1

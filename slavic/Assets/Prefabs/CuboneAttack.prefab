@@ -151,7 +151,7 @@ MonoBehaviour:
   damage: 3
   AOE: 3
   initialForce: 15
-  flyingTimeLimit: 5
+  flyingTimeLimit: 0.3
 --- !u!135 &135000013789819490
 SphereCollider:
   m_ObjectHideFlags: 1

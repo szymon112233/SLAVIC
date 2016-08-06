@@ -402,6 +402,7 @@ MonoBehaviour:
   mainCamera: {fileID: 20000012919334144}
   playerControll: {fileID: 114000012551069150}
   effectsManager: {fileID: 114000010051331458}
+  squadManager: {fileID: 114000013444488220}
   playerControlledMinion: {fileID: 0}
 --- !u!114 &114000012551069150
 MonoBehaviour:
@@ -416,7 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledMinion: {fileID: 0}
   currentCamera: {fileID: 4000011109207424}
-  speed: 500
+  speed: 600
 --- !u!114 &114000013444488220
 MonoBehaviour:
   m_ObjectHideFlags: 1
