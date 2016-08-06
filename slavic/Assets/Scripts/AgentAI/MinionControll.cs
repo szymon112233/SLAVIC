@@ -10,7 +10,7 @@ public class MinionControll : MonoBehaviour
     private TeamID teamID;
     private float deathAnimationDuration = 1f;
 
-	void Start () 
+	void Awake() 
     {
         patrolAI = GetComponent<PatrolAI>();
         equipmentManager = GetComponent<EquipmentManager>();

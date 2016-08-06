@@ -17,8 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
         playerRig = controlledMinion.GetComponent<Rigidbody>();
-        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
-        currentCameraPositionOffset = currentCamera.position - playerRig.transform.position;
+        currentCameraPositionOffset = new Vector3(0, 16.93f, -37.85f);    //currentCamera.position - playerRig.transform.position;
 	}
 
     public void PosessMinion(MinionControll minion)
@@ -37,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
         {
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
             Move();
             AimAndShoot();
             if (currentCamera != null)
