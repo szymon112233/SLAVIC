@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
-    public GameObject controlledMinion;
+    public MinionControll controlledMinion;
     private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
     private Vector3 movementDirection;
     public Transform currentCamera;
@@ -18,8 +18,9 @@ public class PlayerMovement : MonoBehaviour
 	}
 
     //FUTURE : We will change it to using MinionControl
-    public void PosessMinion(GameObject minion)
+    public void PosessMinion(MinionControll minion)
     {
+        controlledMinion = minion;
         playerRig = minion.GetComponent<Rigidbody>();
         controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
     }
@@ -35,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 CameraMovement();
             }
+        }
+        else
+        {
+            PosessMinion(FindObjectOfType<GameplayManager>().playerControlledMinion);
         }
 	}
        

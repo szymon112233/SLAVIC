@@ -9,6 +9,7 @@ public class GameplayManager : MonoBehaviour
     public Camera mainCamera;
     public PlayerMovement playerControll;
     public EffectsManager effectsManager;
+    public MinionControll playerControlledMinion;
     
     public static GameplayManager instance = null;    
 	
