@@ -8,6 +8,7 @@ public class MinionControll : MonoBehaviour
     private OmniSense omniSense;
     private Health health;
     private TeamID teamID;
+    private float deathAnimationDuration = 1f;
 
 	void Start () 
     {
@@ -20,9 +21,17 @@ public class MinionControll : MonoBehaviour
 
     void Update()
     {
-        if(!health.IsAlive())
+        if (!health.IsAlive())
         {
             patrolAI.Deactivate();
+            deathAnimationDuration -= Time.deltaTime;
+            //TODO: animacja śmierci
+
+            if (deathAnimationDuration <= 0)
+            {
+                //TODO: ciało
+                Destroy(gameObject);
+            }
         }
     }
 

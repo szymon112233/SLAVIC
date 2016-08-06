@@ -8,13 +8,10 @@ public class SquadManager : MonoBehaviour
 
     public Vector3 playerPosition;
 
-    public List<List<Vector3>> squadMembers;
     public List<MinionControll> minions;
 
     public float distanceBetweenCircles = 3f;
     public int membersInMinimalCircle = 6;
-
-
 
     // Use this for initialization
     void Awake()
@@ -28,12 +25,16 @@ public class SquadManager : MonoBehaviour
         int circleNumber = 1;
         int currentMinionNumber = 0;
 
-        if(FindObjectOfType<GameplayManager>().playerControlledMinion==null)
+        if(FindObjectOfType<GameplayManager>().playerControlledMinion == null)
         {
             if (minions.Count > 0)
             {
-                FindObjectOfType<GameplayManager>().playerControlledMinion = minions[minions.Count-1];
+                FindObjectOfType<GameplayManager>().playerControlledMinion = minions[minions.Count - 1];
                 DeleteLastSquadMember();
+            }
+            else
+            {
+                //TODO przegrana.
             }
         }
         else
@@ -41,7 +42,19 @@ public class SquadManager : MonoBehaviour
             playerPosition = FindObjectOfType<GameplayManager>().playerControlledMinion.transform.position;
         }
 
-        for(int i = 0; i<minions.Count;i++ )
+        int i = 0;
+        while(i < minions.Count)
+        {
+            if (!minions[i].GetHealth().IsAlive())
+            {
+                DeleteSquadMember(i);
+            }
+            else
+            {
+                i++;
+            }
+        }
+        for(i = 0; i < minions.Count; i++)
         {
             float spaceBetweenMinions = 360 / (membersInMinimalCircle * circleNumber);
             Vector3 positionInCircle = new Vector3(Mathf.Cos(spaceBetweenMinions * currentMinionNumber * Mathf.Deg2Rad),0, Mathf.Sin(spaceBetweenMinions * currentMinionNumber * Mathf.Deg2Rad));
@@ -61,13 +74,15 @@ public class SquadManager : MonoBehaviour
     {
         minions.Add(tempMinionControll);
     }
+
     public void AddMutipleSquadMembers(MinionControll[] tempMinionControllList)
     {
-        for (int i =0; i<tempMinionControllList.Length; i++)
+        for (int i = 0; i < tempMinionControllList.Length; i++)
         {
             AddSquadMember(tempMinionControllList[i]);
         }
     }
+
     public void DeleteLastSquadMember()
     {
         if(minions.Count>0)
@@ -77,6 +92,7 @@ public class SquadManager : MonoBehaviour
         }
             
     }
+
     public void DeleteSquadMember(int index)
     {
         if (minions.Count > 0 && minions.Count < index )
@@ -86,6 +102,7 @@ public class SquadManager : MonoBehaviour
             minions = fixMinions();
         }
     }
+
     private List<MinionControll> fixMinions()
     {
         if (minions == null)

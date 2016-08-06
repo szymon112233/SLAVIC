@@ -4,28 +4,32 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
     public MinionControll controlledMinion;
-    private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
+    private Vector3 currentCameraPositionOffset;
     private Vector3 movementDirection;
     public Transform currentCamera;
     public float speed = 500f;
     private Rigidbody playerRig;
+    private FXManager fxManager;
+    private bool canStep = true;
 
 	// Use this for initialization
 	void Start () 
     {
-        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
-        {
-            playerRig = controlledMinion.GetComponent<Rigidbody>();
-            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
-        }
+        fxManager = controlledMinion.GetComponentInChildren<FXManager>();
+        playerRig = controlledMinion.GetComponent<Rigidbody>();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        currentCameraPositionOffset = currentCamera.position - playerRig.transform.position;
 	}
 
-    //FUTURE : We will change it to using MinionControl
     public void PosessMinion(MinionControll minion)
     {
-        controlledMinion = minion;
-        playerRig = minion.GetComponent<Rigidbody>();
-        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        if (minion != null)
+        {
+            controlledMinion = minion;
+            fxManager = minion.GetComponent<FXManager>();
+            playerRig = minion.GetComponent<Rigidbody>();
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        }
     }
 	
 	// Update is called once per frame
@@ -55,7 +59,19 @@ public class PlayerMovement : MonoBehaviour
         if (playerRig != null)
         {
             playerRig.velocity = movementDirection * speed * Time.deltaTime;
+            if ((movementDirection.z > 0 || movementDirection.x > 0) && fxManager != null && canStep)
+            {
+                canStep = false;
+                StartCoroutine("Step");
+            }
         }
+    }
+
+    IEnumerator Step()
+    {
+        fxManager.PlayHealClip();
+        yield return new WaitForSeconds(Random.RandomRange(0.4f, 1f));
+        canStep = true;
     }
     void AimAndShoot()
     {
