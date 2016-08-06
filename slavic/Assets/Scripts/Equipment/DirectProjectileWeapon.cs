@@ -4,7 +4,7 @@ using System.Collections;
 /**
  * Broń strzelająca bezpośrednio.
  * */
-public class DirectProjectileWeapon : EquipmentInfo
+public class DirectProjectileWeapon : EquipmentPiece
 {
 	public AudioSource audioSource;
 	public AudioClip firingSound;

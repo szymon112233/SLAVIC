@@ -8,15 +8,13 @@ public class GameplayManager : MonoBehaviour
     public TeamControll teamManager;
     public Camera mainCamera;
     public PlayerMovement playerControll;
-    public MinionControll playerControlledMinion;
+    public EffectsManager effectsManager;
     
     public static GameplayManager instance = null;    
 	
     void Start () 
     {
         instance = this;
-        teamManager = FindObjectOfType<TeamControll>();
-        playerControll = FindObjectOfType<PlayerMovement>();
     }
 	
 	// Update is called once per frame

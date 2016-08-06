@@ -3,22 +3,31 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
-    private GameObject controlledMinion;
-    private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 0.0f, 0.0f);
-    private Vector2 movementDirection;
+    public GameObject controlledMinion;
+    private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
+    private Vector3 movementDirection;
     public Transform currentCamera;
-    public float speed =1f;
-    public Rigidbody2D playerRig;
+    public float speed =500f;
+    private Rigidbody playerRig;
 
 	// Use this for initialization
 	void Start () 
     {
+        playerRig = controlledMinion.GetComponent<Rigidbody>();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
 	}
+
+    //FUTURE : We will change it to using MinionControl
+    public void PosessMinion(GameObject minion)
+    {
+        playerRig = minion.GetComponent<Rigidbody>();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+    }
 	
 	// Update is called once per frame
 	void Update () 
     {
-        if (controlledMinion != null)
+        if (controlledMinion != null )
         {
             Move();
             AimAndShoot();
@@ -31,8 +40,9 @@ public class PlayerMovement : MonoBehaviour
        
     void Move() 
     {
-        movementDirection.y = Input.GetAxisRaw("Vertical");
+        movementDirection.z = Input.GetAxisRaw("Vertical");
         movementDirection.x = Input.GetAxisRaw("Horizontal");
+        movementDirection.y = 0;
         movementDirection = movementDirection.normalized;
         if (playerRig != null)
         {
@@ -46,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
         //Strzał
         if (Input.GetButtonDown("Fire1"))
         {
-            //TODO: strzelanie
+            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(observationPoint);
+            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
         }
     }
     private void CameraMovement()

@@ -9,6 +9,7 @@ public class SquadManager : MonoBehaviour
     public Transform playerTransform;
 
     public List<List<Vector3>> squadMembers;
+    public List<MinionControll> minions;
 
     public float distanceBetweenMembers = 3f;
     public int membersInMinimalCircle = 6;
@@ -25,11 +26,35 @@ public class SquadManager : MonoBehaviour
 
         squadMembers = new List<List<Vector3>>();
         circleProperPositions = new List<List<Vector3>>();
+        minions = new List<MinionControll>(); 
 
         AddCircle();
     }
 
     // Update is called once per frame
+    void Update()
+    {
+
+        if(FindObjectOfType<GameplayManager>().playerControlledMinion==null)
+        {
+            if (minions.Count > 0)
+            {
+                FindObjectOfType<GameplayManager>().playerControlledMinion = minions[0];
+                DeleteSquadMember(0, 0);
+            }
+        }
+        else
+        {
+            playerTransform = FindObjectOfType<GameplayManager>().playerControlledMinion.transform;
+        }
+
+        for(int i = 0; i<minions.Count;i++ )
+        {
+            minions[i].transform.position = squadMembers[i / 6][i % (6 * (i / 6))];
+        }
+    }
+
+   
 
     public void AddSquadMember()
     {
@@ -44,6 +69,7 @@ public class SquadManager : MonoBehaviour
         Vector3 AddPosition = circleProperPositions[circles - 1][squadMembers[circles - 1].Count];
 
         squadMembers[circles - 1].Add(AddPosition);
+        minions.Add(new MinionControll());
     }
 
     public void DeleteSquadMember(int circle, int member)
