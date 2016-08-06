@@ -7,6 +7,7 @@ public class GameplayManager : MonoBehaviour
     public Camera mainCamera;
     public PlayerMovement playerControll;
     public EffectsManager effectsManager;
+    public SquadManager squadManager;
     public MinionControll playerControlledMinion;
 	
     void Start () 

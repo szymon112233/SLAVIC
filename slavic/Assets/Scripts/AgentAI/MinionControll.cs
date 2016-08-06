@@ -8,7 +8,7 @@ public class MinionControll : MonoBehaviour
     private OmniSense omniSense;
     private Health health;
     private TeamID teamID;
-    private float deathAnimationDuration = 1f;
+    private float deathAnimationDuration = 0.1f;
 
 	void Awake() 
     {
