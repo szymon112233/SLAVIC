@@ -33,21 +33,18 @@ public class TeamControll : MonoBehaviour {
             TeamID myTeam = me.GetComponent<TeamID>();
             TeamID anotherTeam = another.GetComponent<TeamID>();
 
-            if (myTeam.team != null && anotherTeam.team != null)
+            if (myTeam != null && anotherTeam != null)
             {
                 switch (myTeam.team)
                 {
                     case Team.FRIENDLY:
                         return friendlyRelations[anotherTeam.team].Equals(false);
-                        break;
 
                     case Team.HOSTILE:
                         return hostileRelations[anotherTeam.team].Equals(false);
-                        break;
 
                     default:
                         return false;
-                        break;
                 }
             }
             else
@@ -66,21 +63,18 @@ public class TeamControll : MonoBehaviour {
             TeamID myTeam = me.GetComponent<TeamID>();
             TeamID anotherTeam = another.GetComponent<TeamID>();
 
-            if (myTeam.team != null && anotherTeam.team != null)
+            if (myTeam != null && anotherTeam != null)
             {
                 switch (myTeam.team)
                 {
                     case Team.FRIENDLY:
                         return friendlyRelations[anotherTeam.team].Equals(true);
-                        break;
 
                     case Team.HOSTILE:
                         return hostileRelations[anotherTeam.team].Equals(true);
-                        break;
 
                     default:
                         return false;
-                        break;
                 }
             }
             else

@@ -31,6 +31,8 @@ GameObject:
   - 114: {fileID: 114000011432849936}
   - 114: {fileID: 114000012086243992}
   - 114: {fileID: 114000010923239268}
+  - 82: {fileID: 82000011262251926}
+  - 114: {fileID: 114000010168541948}
   m_Layer: 0
   m_Name: TestMinion
   m_TagString: Untagged
@@ -96,6 +98,80 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!82 &82000011262251926
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010008017624}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010035329566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,6 +186,24 @@ MonoBehaviour:
   priority: 1
   weapon: {fileID: 114000010895972232}
   personalSpaceRadius: 3
+--- !u!114 &114000010168541948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010008017624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd762fdaa067852469d16b101a97abe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodSplatter: {fileID: 198000011880788978, guid: 0aed0623d5824334f93b01519dcbeb41,
+    type: 2}
+  sandStepping: {fileID: 198000012258016240, guid: 393fbfa49d08f314c9b643cb146d95fc,
+    type: 2}
+  deathClip: {fileID: 8300000, guid: 68f8f65a377ceb4459f054275733cbec, type: 3}
+  hurtClip: {fileID: 8300000, guid: 2f72f024056ac87409966ac623f6a7c9, type: 3}
+  healClip: {fileID: 0}
 --- !u!114 &114000010685652536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,12 +226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94363b7daf401f64180f870f98832525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 5
-  optimalRange: 3
-  audioSource: {fileID: 0}
-  firingSound: {fileID: 0}
+  maxRange: 3
+  optimalRange: 1
+  audioSource: {fileID: 82000011262251926}
+  firingSound: {fileID: 8300000, guid: d78228dc4a2ccab4988ae23a509c63c3, type: 3}
   reloadSound: {fileID: 0}
-  bullet: {fileID: 0}
+  bullet: {fileID: 1000011385047318, guid: 750b85aabcc78ce418453c36cfb7fe6c, type: 2}
   ammoPerShot: 1
   bulletReloadTime: 1
   magazineReloadTime: 1
@@ -153,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24155c4cc4c1a64a9d1f4e9df20fec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
 --- !u!114 &114000010977159196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e888de499f4ce48b32f2ca86969ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  omniSenseRange: 5
+  omniSenseRange: 50
 --- !u!114 &114000012086243992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,9 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6762d9a4d978bcd4887e715d1b7c4260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  woundSound: {fileID: 0}
-  healSound: {fileID: 0}
   corpse: {fileID: 0}
   MAX_HEALTH: 5
   REGENERATION: 0
@@ -205,7 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369644965ab47604ab67ad3183d7cde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentPieceAIs: []
+  equipmentPieceAIs:
+  - {fileID: 114000010035329566}
   consequenceBonus: 0.5
   lastTarget: {fileID: 0}
   lastUsedEquipmentPiece: {fileID: 0}
@@ -224,16 +316,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9047eb2bf7e87447a9181c1b3f1c3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetResolvePolicy: 0
+  targetResolvePolicy: 1
   patrolEndingPolicy: 2
   standByTime: 1
   searchTime: 1
-  defendChaseDistance: 1
-  destinationTolerence: 1
+  defendChaseDistance: 20
+  destinationTolerence: 5
   patrolPoints:
-  - {x: 0, y: 1, z: 0}
-  - {x: 10, y: 1, z: 0}
-  - {x: 0, y: 1, z: 10}
+  - {x: 0, y: 0.1, z: 0}
+  - {x: 20, y: 0.1, z: 0}
+  - {x: 0, y: 0.1, z: 20}
 --- !u!136 &136000012911636418
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -241,7 +333,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010008017624}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 3
@@ -254,8 +346,8 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010008017624}
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Speed: 3.5
+  m_Radius: 1
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 0

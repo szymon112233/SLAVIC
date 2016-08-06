@@ -7,14 +7,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
     private Vector3 movementDirection;
     public Transform currentCamera;
-    public float speed =500f;
+    public float speed = 500f;
     private Rigidbody playerRig;
 
 	// Use this for initialization
 	void Start () 
     {
-        playerRig = controlledMinion.GetComponent<Rigidbody>();
-        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
+        {
+            playerRig = controlledMinion.GetComponent<Rigidbody>();
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        }
 	}
 
     //FUTURE : We will change it to using MinionControl
@@ -28,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        if (controlledMinion != null )
+        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
         {
             Move();
             AimAndShoot();
@@ -56,13 +59,18 @@ public class PlayerMovement : MonoBehaviour
     }
     void AimAndShoot()
     {
-        Vector3 observationPoint = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        
-        //Strzał
-        if (Input.GetButtonDown("Fire1"))
+        RaycastHit hit;
+        Ray ray = currentCamera.GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(observationPoint);
-            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
+            Vector3 aimPoint = hit.point;
+            aimPoint.y = 1.5f;
+            if (Input.GetButtonDown("Fire1"))
+            {
+                controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(aimPoint);
+                controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
+            }
         }
     }
     private void CameraMovement()
