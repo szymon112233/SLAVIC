@@ -10,7 +10,7 @@ public class FXManager : MonoBehaviour {
     public AudioClip hurtClip;
     public AudioClip healClip;
 
-    AudioSource audioSource;
+    private AudioSource audioSource;
 
     void Awake ()
     {
