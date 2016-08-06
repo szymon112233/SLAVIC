@@ -74,12 +74,12 @@ public class FurbyAnimatorScript : MonoBehaviour {
 
     private bool IsUp(Vector3 vec)
     {
-        return vec.y > 0;
+        return vec.z > 0;
     }
 
     private bool IsDown(Vector3 vec)
     {
-        return vec.y < 0;
+        return vec.z < 0;
     }
 
     private bool IsRight(Vector3 vec)

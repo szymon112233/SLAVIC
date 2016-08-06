@@ -3,15 +3,21 @@ using System.Collections;
 
 public class Health : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip woundSound;
-    public AudioClip healSound;
-    public GameObject corpse;
+    public GameObject corpse;    
 
     public float MAX_HEALTH;
     private float currentHealth;
     private bool alive;
     public float REGENERATION;
+
+    private FXManager fxManager;
+    private FurbyAnimatorScript animatorScript;
+
+    void Awake()
+    {
+        fxManager = GetComponent<FXManager>();
+        animatorScript = GetComponent<FurbyAnimatorScript>();
+    }
 
     void Start()
     {
@@ -53,18 +59,16 @@ public class Health : MonoBehaviour
             }
             if (change < 0)
             {
-                if (audioSource != null && woundSound != null)
-                {
-                    audioSource.PlayOneShot(woundSound);
-                }
+                fxManager.PlayHurtClip();
                 //TODO: Jacek efekty zranienia
+
+                fxManager.PlayBloodSplatter();
+
+                animatorScript.PlayHurtAnimation();
             }
             else
             {
-                if (audioSource != null && healSound != null)
-                {
-                    audioSource.PlayOneShot(healSound);
-                }
+                fxManager.PlayHealClip();
             }
         }
     }

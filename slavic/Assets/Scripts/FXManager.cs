@@ -7,7 +7,8 @@ public class FXManager : MonoBehaviour {
     public ParticleSystem sandStepping;
 
     public AudioClip deathClip;
-    public AudioClip inPainClip;
+    public AudioClip hurtClip;
+    public AudioClip healClip;
 
     AudioSource audioSource;
 
@@ -52,9 +53,14 @@ public class FXManager : MonoBehaviour {
         StopParticleSystem(sandStepping);
     }
 
-    public void PlayInPainClip()
+    public void PlayHealClip()
     {
-        PlaySoundClip(inPainClip);
+        PlaySoundClip(healClip);
+    }
+
+    public void PlayHurtClip()
+    {
+        PlaySoundClip(hurtClip);
     }
 
     public void PlayDeathClip()
@@ -64,16 +70,16 @@ public class FXManager : MonoBehaviour {
     
     private void PlaySoundClip(AudioClip clip)
     {        
-        if(audioSource != null)
+        if(audioSource != null && clip != null)
         {
             if(audioSource.isPlaying)
             {
                 audioSource.Stop();
             }
 
-            audioSource.clip = clip;
+            //audioSource.clip = clip;
 
-            audioSource.Play();
+            audioSource.PlayOneShot(clip);
         }
     }
 
