@@ -59,16 +59,23 @@ public class Health : MonoBehaviour
             }
             if (change < 0)
             {
-                fxManager.PlayHurtClip();
-                //TODO: Jacek efekty zranienia
+                if (fxManager != null)
+                {
+                    fxManager.PlayHurtClip();
+                    fxManager.PlayBloodSplatter();
+                }
 
-                fxManager.PlayBloodSplatter();
-
-                animatorScript.PlayHurtAnimation();
+                if (animatorScript != null)
+                {
+                    animatorScript.PlayHurtAnimation();
+                }
             }
             else
             {
-                fxManager.PlayHealClip();
+                if (fxManager != null)
+                {
+                    fxManager.PlayHealClip();
+                }
             }
         }
     }

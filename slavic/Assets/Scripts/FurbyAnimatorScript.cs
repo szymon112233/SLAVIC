@@ -50,10 +50,22 @@ public class FurbyAnimatorScript : MonoBehaviour {
         }
 
         if (IsRight(walk))
+        {
             SetSprite(rightSprite);
 
+            animator.SetBool("WalkRight", true);
+
+            spriteRenderer.flipX = true;
+        }
+
         if (IsLeft(walk))
+        {
             SetSprite(leftSprite);
+
+            animator.SetBool("WalkRight", false);
+
+            spriteRenderer.flipY = false;
+        }
 
         if (IsUp(walk))
             SetSprite(upSprite);
