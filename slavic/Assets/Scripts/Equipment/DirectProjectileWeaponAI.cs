@@ -24,12 +24,12 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 
 	void Update()
 	{
-		if(weapon.GetMagazineSize() > 0 && weapon.GetMagazineAmmoCount() <= 0)
-		{
-			weapon.ReloadWeapon(weapon.GetMagazineSize());
-		}
 		if(base.getPermissionToOperate())
 		{
+            if (weapon.GetMagazineSize() > 0 && weapon.GetMagazineAmmoCount() <= 0)
+            {
+                weapon.ReloadWeapon(weapon.GetMagazineSize());
+            }
 			if(privateTarget != null && CheckTargetValidity(privateTarget) && RayTargetCheck(privateTarget))
 			{
 				weapon.Aim(DetermineShootingPoint(privateTarget));
@@ -126,7 +126,7 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 	{
 		if(weapon != null)
 		{
-			if (target == null | target.GetComponent<Collider>() == null) 
+			if (target == null || target.GetComponent<Collider>() == null) 
 			{
 				//brak celu lub brak jego collidera
 				return false;

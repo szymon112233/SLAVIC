@@ -100,7 +100,7 @@ public class EquipmentAI : MonoBehaviour
                 if (maxEquipmentRate.getEquipmentPiece() != null)
                 {
                     optimalDistanceToTarget = maxEquipmentRate.getEquipmentPiece().getOptimalRange();
-                    maximalDistanceToTarget = maxEquipmentRate.getEquipmentPiece().getOptimalRange();
+                    maximalDistanceToTarget = maxEquipmentRate.getEquipmentPiece().getMaxRange();
                 }
                 else
                 {

@@ -9,10 +9,12 @@ public class TeamControll : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        friendlyRelations = new Hashtable();
         friendlyRelations.Add(Team.FRIENDLY, true);
         friendlyRelations.Add(Team.HOSTILE, false);
         friendlyRelations.Add(Team.NEUTRAL, false);
 
+        hostileRelations = new Hashtable();
         hostileRelations.Add(Team.FRIENDLY, false);
         hostileRelations.Add(Team.HOSTILE, true);
         hostileRelations.Add(Team.NEUTRAL, false);
