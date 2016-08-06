@@ -27,7 +27,7 @@ public class PatrolAI : MonoBehaviour
     private int patrolPointsIndex;							//indeks na miejsce listy z aktualnym punktem TODO: zamienić na wskaźnik
     private bool rightListMovement;							//kierunek przechodzenia po liście punktów tworzących scieżkę patrolowania
 
-    private OmniSense sense;                                //Zmysł na podstawie którego analizujemy otoczenia.
+    private MinionControll minionControll;
 
     /**
      * NavAgent- agent nawigacyjny systemu Pathfinding'u w Unity.
@@ -43,7 +43,8 @@ public class PatrolAI : MonoBehaviour
      * W przypadku braku wyposażenia, aktor będzie się tylko poruszał.
      * */
     //-zestaw wyposażenia
-    private EquipmentAI equipmentAI;
+    //private EquipmentAI equipmentAI;  //teraz pobierane przez equipment manager
+    private EquipmentManager equipmentManager;
 
     /**
      * Inicjalizacja po utworzeniu.
@@ -63,11 +64,9 @@ public class PatrolAI : MonoBehaviour
         patrolPointsIndex = 0;
 
         navAgent = GetComponent<NavMeshAgent>();
-        sense = GetComponent<OmniSense>();
-        equipmentAI = GetComponent<EquipmentAI>();
+        minionControll = GetComponent<MinionControll>();
+        equipmentManager = GetComponent<EquipmentManager>();
 
-        //FIXME
-        //isActive = false;
         isActive = true;
     }
 
@@ -98,9 +97,9 @@ public class PatrolAI : MonoBehaviour
      * */
     private void SenseUpdate()
     {
-        if (sense != null)
+        if (minionControll.GetOmniSense() != null)
         {
-            sense.DetectGameObjects();
+            minionControll.GetOmniSense().DetectGameObjects();
         }
     }
 
@@ -109,9 +108,9 @@ public class PatrolAI : MonoBehaviour
      * */
     private void EquipmentUpdate()
     {
-        if (equipmentAI != null)
+        if (equipmentManager.GetEquipmentAI() != null)
         {
-            equipmentAI.determineNewFavourites();
+            equipmentManager.GetEquipmentAI().determineNewFavourites();
         }
     }
 
@@ -327,7 +326,7 @@ public class PatrolAI : MonoBehaviour
              * -Zakończenie obsługi gdy: cel nie żyje lub nie odnaleziono celu po zgubieniu.
              * */
             case TargetResolvePolicy.CHASE:
-                if (equipmentAI.currentTarget == null)
+                if (equipmentManager.GetEquipmentAI().currentTarget == null)
                 {
                     //zgubiono cel
                     targetResolve = TargetResolveEnum.SEARCH_TARGET;
@@ -335,7 +334,7 @@ public class PatrolAI : MonoBehaviour
                 else
                 {
                     standByTimeElapsed = 0;
-                    if (Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) > equipmentAI.optimalDistanceToTarget)
+                    if (Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) > equipmentManager.GetEquipmentAI().optimalDistanceToTarget)
                     {
                         //trzeba zbliżyć się do celu
                         targetResolve = TargetResolveEnum.CLOSE_IN_ON_TARGET;
@@ -358,7 +357,7 @@ public class PatrolAI : MonoBehaviour
              * */
             case TargetResolvePolicy.DEFEND:
 
-                if (equipmentAI.currentTarget == null)
+                if (equipmentManager.GetEquipmentAI().currentTarget == null)
                 {
                     //cel niewidoczny
                     if (Vector3.Distance(lastAgentLocationOnPath, lastTargetLocation) <= defendChaseDistance)
@@ -375,10 +374,10 @@ public class PatrolAI : MonoBehaviour
                 else
                 {
                     //cel widoczny
-                    if (Vector3.Distance(lastAgentLocationOnPath, equipmentAI.currentTarget.transform.position) <= defendChaseDistance)
+                    if (Vector3.Distance(lastAgentLocationOnPath, equipmentManager.GetEquipmentAI().currentTarget.transform.position) <= defendChaseDistance)
                     {
                         //można się zbliżyć
-                        if (Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) <= equipmentAI.optimalDistanceToTarget)
+                        if (Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) <= equipmentManager.GetEquipmentAI().optimalDistanceToTarget)
                         {
                             //cel w pożądanym zasięgu
                             targetResolve = TargetResolveEnum.TARGET_INTERACTION;
@@ -392,7 +391,7 @@ public class PatrolAI : MonoBehaviour
                     else
                     {
                         //nie można się zbliżyć
-                        if (Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) <= equipmentAI.maximalDistanceToTarget)
+                        if (Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) <= equipmentManager.GetEquipmentAI().maximalDistanceToTarget)
                         {
                             //cel w dopuszczalnym zasięgu
                             targetResolve = TargetResolveEnum.TARGET_INTERACTION;
@@ -413,7 +412,7 @@ public class PatrolAI : MonoBehaviour
              * -Zakończenie obsługi gdy: cel nie żyje lub nie jest w zasięgu lub nie jest widoczny.
              * */
             case TargetResolvePolicy.HOLD_POSITION:
-                if (equipmentAI.currentTarget == null)
+                if (equipmentManager.GetEquipmentAI().currentTarget == null)
                 {
                     //zgubiono cel
                     targetResolve = TargetResolveEnum.DONE;
@@ -421,7 +420,7 @@ public class PatrolAI : MonoBehaviour
                 else
                 {
                     standByTimeElapsed = 0;
-                    if (Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) > equipmentAI.maximalDistanceToTarget)
+                    if (Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) > equipmentManager.GetEquipmentAI().maximalDistanceToTarget)
                     {
                         //cel poza zasięgiem
                         targetResolve = TargetResolveEnum.DONE;
@@ -465,9 +464,9 @@ public class PatrolAI : MonoBehaviour
                 break;
         }
 
-        if (equipmentAI.currentTarget != null)
+        if (equipmentManager.GetEquipmentAI().currentTarget != null)
         {
-            lastTargetLocation = equipmentAI.currentTarget.transform.position;
+            lastTargetLocation = equipmentManager.GetEquipmentAI().currentTarget.transform.position;
         }
     }
 
@@ -479,7 +478,7 @@ public class PatrolAI : MonoBehaviour
     {
         if (navAgent != null)
         {
-            navAgent.destination = equipmentAI.currentTarget.transform.position;
+            navAgent.destination = equipmentManager.GetEquipmentAI().currentTarget.transform.position;
         }
     }
 
@@ -577,13 +576,13 @@ public class PatrolAI : MonoBehaviour
      * */
     private bool isTargetToResolve()
     {
-        if (equipmentAI == null || equipmentAI.currentTarget == null)
+        if (equipmentManager.GetEquipmentAI() == null || equipmentManager.GetEquipmentAI().currentTarget == null)
         {
             return false;
         }
         if (targetResolvePolicy == TargetResolvePolicy.IGNORE ||
-            (targetResolvePolicy == TargetResolvePolicy.HOLD_POSITION && Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) > equipmentAI.maximalDistanceToTarget) ||
-            (targetResolvePolicy == TargetResolvePolicy.DEFEND && Vector3.Distance(transform.position, equipmentAI.currentTarget.transform.position) > equipmentAI.maximalDistanceToTarget)
+            (targetResolvePolicy == TargetResolvePolicy.HOLD_POSITION && Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) > equipmentManager.GetEquipmentAI().maximalDistanceToTarget) ||
+            (targetResolvePolicy == TargetResolvePolicy.DEFEND && Vector3.Distance(transform.position, equipmentManager.GetEquipmentAI().currentTarget.transform.position) > equipmentManager.GetEquipmentAI().maximalDistanceToTarget)
             )
         {
             return false;
@@ -654,11 +653,14 @@ public class PatrolAI : MonoBehaviour
     {
         isActive = true;
         navAgent.enabled = true;
+        equipmentManager.GetEquipmentAI().Activate();
+        RestartState();
     }
 
     public void Deactivate()
     {
         isActive = false;
         navAgent.enabled = false;
+        equipmentManager.GetEquipmentAI().Deactivate();
     }
 }

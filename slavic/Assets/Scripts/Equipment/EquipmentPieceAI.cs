@@ -6,7 +6,7 @@ public class EquipmentPieceAI : MonoBehaviour
 {
     protected GameObject privateTarget = null;
     protected bool permissionToOperate = false;
-    protected EquipmentInfo equipmentInfo;
+    protected EquipmentPiece equipmentPiece;
 
     public float priority = 1;
 
@@ -28,9 +28,9 @@ public class EquipmentPieceAI : MonoBehaviour
 
     public float getMaxRange()
     {
-        if (equipmentInfo != null)
+        if (equipmentPiece != null)
         {
-            return equipmentInfo.maxRange;
+            return equipmentPiece.maxRange;
         }
         else
         {
@@ -40,9 +40,9 @@ public class EquipmentPieceAI : MonoBehaviour
 
     public float getOptimalRange()
     {
-        if (equipmentInfo != null)
+        if (equipmentPiece != null)
         {
-            return equipmentInfo.optimalRange;
+            return equipmentPiece.optimalRange;
         }
         else
         {

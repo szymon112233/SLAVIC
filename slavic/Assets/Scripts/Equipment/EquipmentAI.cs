@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 /**
- * Nadzoruje wybranie zalecanego przedmiotu ekwipunku do użycia, zalecanego celu oraz po żądanego dystansy do niego.
+ * Nadzoruje wybranie zalecanego przedmiotu ekwipunku do użycia, zalecanego celu oraz pożądanego dystansy do niego.
  * */
 public class EquipmentAI : MonoBehaviour
 {
-    private Health health;
-    public EquipmentPieceAI[] equipmentPieces;
-    private OmniSense sense;
+    private bool isActive;
+    public EquipmentPieceAI[] equipmentPieceAIs;
+    private MinionControll minionControll;
     public float consequenceBonus = 0.5f;
 
     public GameObject lastTarget;
@@ -22,8 +22,8 @@ public class EquipmentAI : MonoBehaviour
 
     void Start()
     {
-        health = GetComponent<Health>();
-        sense = GetComponent<OmniSense>();
+        isActive = true;
+        minionControll = GetComponent<MinionControll>();
         lastTarget = null;
         lastUsedEquipmentPiece = null;
         currentTarget = null;
@@ -34,18 +34,18 @@ public class EquipmentAI : MonoBehaviour
 
     void Update()
     {
-        if (health != null && !health.IsAlive())
+        if (!isActive || (minionControll.GetHealth() != null && !minionControll.GetHealth().IsAlive()))
         {
             currentTarget = null;
             currentlyUsedEquipmentPiece = null;
             optimalDistanceToTarget = 0;
             maximalDistanceToTarget = 0;
 
-            if (equipmentPieces != null && equipmentPieces.Length > 0)
+            if (equipmentPieceAIs != null && equipmentPieceAIs.Length > 0)
             {
-                for (int i = 0; i < equipmentPieces.Length; i++)
+                for (int i = 0; i < equipmentPieceAIs.Length; i++)
                 {
-                    equipmentPieces[i].setPermissionToOperate(false);
+                    equipmentPieceAIs[i].setPermissionToOperate(false);
                 }
             }
         }
@@ -58,15 +58,15 @@ public class EquipmentAI : MonoBehaviour
     {
         lastTarget = currentTarget;
         lastUsedEquipmentPiece = currentlyUsedEquipmentPiece;
-        if (sense != null && equipmentPieces != null && equipmentPieces.Length > 0 && sense.GetObjectsInRange() != null)
+        if (minionControll.GetOmniSense() != null && equipmentPieceAIs != null && equipmentPieceAIs.Length > 0 && minionControll.GetOmniSense().GetObjectsInRange() != null)
         {
-            if (sense.GetObjectsInRange().Count > 0)
+            if (minionControll.GetOmniSense().GetObjectsInRange().Count > 0)
             {
                 EquipmentRate maxEquipmentRate = new EquipmentRate(null, 0, null);	//obecny maksymalny rating przedmiotu
-                for (int i = 0; i < equipmentPieces.Length; i++)
+                for (int i = 0; i < equipmentPieceAIs.Length; i++)
                 {
-                    equipmentPieces[i].setPermissionToOperate(false);
-                    List<TargetRate> ratingList = equipmentPieces[i].rateTargets(sense.GetObjectsInRange());	//żądanie by przedmiot ocenił cele
+                    equipmentPieceAIs[i].setPermissionToOperate(false);
+                    List<TargetRate> ratingList = equipmentPieceAIs[i].rateTargets(minionControll.GetOmniSense().GetObjectsInRange());	//żądanie by przedmiot ocenił cele
                     TargetRate maxTargetRate = new TargetRate(null, 0);	//obecny maksymalny rating konkretnego celu
 
                     //Wyznaczanie celu najbardziej zalecanego przez ten przedmiot
@@ -80,8 +80,8 @@ public class EquipmentAI : MonoBehaviour
                             }
                         }
                     }
-                    //equipmentPieces[i] najbardziej poleca maxTargetRate, wyliczanie oceny przedmotu ekwipunku
-                    EquipmentRate calculatedEquipmentRate = calculateEquipmentRate(maxTargetRate, equipmentPieces[i]);
+                    //equipmentPieceAIs[i] najbardziej poleca maxTargetRate, wyliczanie oceny przedmotu ekwipunku
+                    EquipmentRate calculatedEquipmentRate = calculateEquipmentRate(maxTargetRate, equipmentPieceAIs[i]);
 
                     //wybranie przedmiotu faworyta w ekwipunku
                     if (calculatedEquipmentRate != null && maxEquipmentRate.getEquipmentRate() < calculatedEquipmentRate.getEquipmentRate())
@@ -136,5 +136,15 @@ public class EquipmentAI : MonoBehaviour
             equipmentRatePostScaling.setRate(equipmentRatePostScaling.getEquipmentRate() + consequenceBonus);
         }
         return equipmentRatePostScaling;
+    }
+
+    public void Activate()
+    {
+        isActive = true;
+    }
+
+    public void Deactivate()
+    {
+        isActive = false;
     }
 }
