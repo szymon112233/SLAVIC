@@ -17,7 +17,7 @@ public class GameplayManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (squadManager.hasWon()) {
+        /*if (squadManager.hasWon()) {
             //TO DO: GUI to load next level
         }
 
@@ -25,6 +25,6 @@ public class GameplayManager : MonoBehaviour {
         {
             Destroy(playerControll.gameObject);
             // TO DO: GUI to reload or exit
-        }
+        }*/
 	}
 }

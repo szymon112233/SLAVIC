@@ -24,59 +24,59 @@ public class TeamControll : MonoBehaviour {
 
     }
 
-    public bool IsHostile(Minion me, Minion another)
+    public bool IsHostile(GameObject me, GameObject another)
     {
         if(me!=null && another!=null)
         {
-            if (me.team == Team.FRIENDLY)
-                return friendlyRelations[another.team].Equals(false);
-            else if (me.team == Team.HOSTILE)
-                return hostileRelations[another.team].Equals(false);
-            else
-                return false;
-        }
-        else
-            return false;
-    }
-    public bool IsHostile(Bullet me, Minion another)
-    {
-        if (me != null && another != null)
-        {
-            if (me.team == Team.FRIENDLY)
-                return friendlyRelations[another.team].Equals(false);
-            else if (me.team == Team.HOSTILE)
-                return hostileRelations[another.team].Equals(false);
-            else
-                return false;
+            Team myTeam = me.GetComponent<Team>();
+            Team anotherTeam = another.GetComponent<Team>();
+
+            if (myTeam != null && anotherTeam != null)
+            {
+                switch (myTeam)
+                {
+                    case Team.FRIENDLY:
+                        return friendlyRelations[anotherTeam].Equals(false);
+                        break;
+
+                    case Team.HOSTILE:
+                        return hostileRelations[anotherTeam].Equals(false);
+                        break;
+
+                    default:
+                        return false;
+                    break;
+                }
+            }
         }
         else
             return false;
     }
 
-    public bool IsFriendly(Minion me, Minion another)
+    public bool IsFriendly(GameObject me, GameObject another)
     {
         if (me != null && another != null)
         {
-            if (me.team == Team.FRIENDLY)
-                return friendlyRelations[another.team].Equals(true);
-            else if (me.team == Team.HOSTILE)
-                return hostileRelations[another.team].Equals(true);
-            else
-                return false;
-        }
-        else
-            return false;   
-    }
-    public bool IsFriendly(Bullet me, Minion another)
-    {
-        if (me != null && another != null)
-        {
-            if (me.team == Team.FRIENDLY)
-                return friendlyRelations[another.team].Equals(true);
-            else if (me.team == Team.HOSTILE)
-                return hostileRelations[another.team].Equals(true);
-            else
-                return false;
+            Team myTeam = me.GetComponent<Team>();
+            Team anotherTeam = another.GetComponent<Team>();
+
+            if (myTeam != null && anotherTeam != null)
+            {
+                switch (myTeam)
+                {
+                    case Team.FRIENDLY:
+                        return friendlyRelations[anotherTeam].Equals(true);
+                        break;
+
+                    case Team.HOSTILE:
+                        return hostileRelations[anotherTeam].Equals(true);
+                        break;
+
+                    default:
+                        return false;
+                        break;
+                }
+            }
         }
         else
             return false;

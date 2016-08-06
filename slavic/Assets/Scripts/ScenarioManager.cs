@@ -9,26 +9,26 @@ public class ScenarioManager : MonoBehaviour {
     private bool lost = false;
 	// Use this for initialization
 	void Start () {
-        squadManger = GameObject.Find("SquadManager");
+        //squadManger = GameObject.Find("SquadManager");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        checkLoose();
+        CheckLoose();
 	}
 
     public void CheckWin() {
-        if (currentFood >= squadManager.NumberOfSquadMembers())
-            won = true;
+        /*if (currentFood >= squadManager.NumberOfSquadMembers())
+            won = true;*/
     }
 
     private void CheckLoose()
     {
-        if (squadManager.NumberOfSquadMembers() == 0)
+        /*if (squadManager.NumberOfSquadMembers() == 0)
         {
             won = false;
             lost = true;
-        }
+        }*/
     }
     public bool hasWon(){
         return won;

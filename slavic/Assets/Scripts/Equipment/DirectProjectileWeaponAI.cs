@@ -15,7 +15,7 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 	void Start()
 	{
 		initializeTargetArray ();
-		base.equipmentOrWeapon = weapon;
+		//base.equipmentOrWeapon = weapon;
 	}
 
 	void Update()
@@ -137,11 +137,11 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 
 			if (healthScript.IsAlive()) 
 			{
-				if(Team.isItMyEnemy(gameObject, target))
+				/*if(Team.isItMyEnemy(gameObject, target))
 				{
 					//to wróg
 					return true;
-				}
+				}*/
 			}
 		}
 		//cel nie żyje lub nie jest wrogiem 
