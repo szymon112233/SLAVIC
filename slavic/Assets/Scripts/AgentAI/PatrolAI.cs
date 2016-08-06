@@ -65,7 +65,10 @@ public class PatrolAI : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         sense = GetComponent<OmniSense>();
         equipmentAI = GetComponent<EquipmentAI>();
-        isActive = false;
+
+        //FIXME
+        //isActive = false;
+        isActive = true;
     }
 
     /**
