@@ -8,9 +8,11 @@ public class AdditionalMinions : MonoBehaviour {
     public GameObject[] minionsPrefabs;
         
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         minions = new List<MinionControll>();
 	}
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControlledMinion)
@@ -24,6 +26,7 @@ public class AdditionalMinions : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
     // Update is called once per frame
     void Update () {
 	
