@@ -12,8 +12,12 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 	private Vector3[] aimArray = new Vector3[7]; 
 	private float targettingOffset = 0.9f;
 
+    private TeamControll teamManager;
+
 	void Start()
 	{
+        GameplayManager gameplayManager = FindObjectOfType<GameplayManager>();
+        teamManager = gameplayManager.teamManager;
 		initializeTargetArray ();
         base.equipmentInfo = weapon;
 	}
@@ -137,7 +141,7 @@ public class DirectProjectileWeaponAI : EquipmentPieceAI
 
 			if (healthScript.IsAlive()) 
 			{
-				if(Team.isItMyEnemy(gameObject, target))
+                if (teamManager.IsHostile(gameObject, target))
 				{
 					//to wróg
 					return true;

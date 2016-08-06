@@ -45,8 +45,12 @@ public class TeamControll : MonoBehaviour {
 
                     default:
                         return false;
-                    break;
+                        break;
                 }
+            }
+            else
+            {
+                return false;
             }
         }
         else
@@ -76,6 +80,10 @@ public class TeamControll : MonoBehaviour {
                         return false;
                         break;
                 }
+            }
+            else
+            {
+                return false;
             }
         }
         else

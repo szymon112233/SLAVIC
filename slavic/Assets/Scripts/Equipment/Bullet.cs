@@ -6,16 +6,18 @@ using System.Collections;
  * */
 public class Bullet : MonoBehaviour 
 {
-	private GameObject owner;
-	private string ownerTag;
 	public float damage;
 	public float AOE;
 	public float initialForce;
 	private float flyingTime;
 	public float flyingTimeLimit;
 
+    private TeamControll teamManager;
+
 	void Start () 
 	{
+        GameplayManager gameplayManager = FindObjectOfType<GameplayManager>();
+        teamManager = gameplayManager.teamManager;
 		flyingTime = 0f;
 	}
 
@@ -30,17 +32,15 @@ public class Bullet : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if(collider.gameObject.tag == "Projectile")
-		{
-			//przelatuje przez inne pociski
-			return;
-		}
-		if(Team.isItMyAlly(ownerTag, collider.gameObject))
-		{
-			//przelatuje przez sojuszników
-			return;
-		}
-		//detonuje
+        if (teamManager != null)
+        {
+            if (teamManager.IsFriendly(gameObject, collider.gameObject))
+            {
+                //przelatuje przez sojuszników
+                return;
+            }
+        }
+        //detonuje
 		detonate (collider.gameObject);
 	}
 
@@ -57,14 +57,7 @@ public class Bullet : MonoBehaviour
 		if(collidedGameObject != null)
 		{
 			//zranienie trafionego celu
-			if((owner != null && !Team.isItMyAlly(owner, collidedGameObject)))
-			{
-				if(collidedGameObject.GetComponent<Health>() != null)
-				{
-					collidedGameObject.GetComponent<Health>().ApplyChange(-damage);
-				}
-			}
-			else if(owner == null && !Team.isItMyAlly(ownerTag, collidedGameObject))
+            if (!teamManager.IsFriendly(gameObject, collidedGameObject))
 			{
 				if(collidedGameObject.GetComponent<Health>() != null)
 				{
@@ -78,14 +71,7 @@ public class Bullet : MonoBehaviour
 			{
 				for(int i=0; i<collidersInRange.Length; i++)
 				{
-					if(owner != null && collidedGameObject != collidersInRange[i].gameObject && !Team.isItMyAlly(owner, collidersInRange[i].gameObject))
-					{
-						if(collidersInRange[i].gameObject.GetComponent<Health>() != null)
-						{
-							collidersInRange[i].gameObject.GetComponent<Health>().ApplyChange(-damage);
-						}
-					}
-					else if(owner == null && collidedGameObject != collidersInRange[i].gameObject && !Team.isItMyAlly(ownerTag, collidersInRange[i].gameObject))
+                    if (collidedGameObject != collidersInRange[i].gameObject && !teamManager.IsFriendly(gameObject, collidersInRange[i].gameObject))
 					{
 						if(collidersInRange[i].gameObject.GetComponent<Health>() != null)
 						{
@@ -103,14 +89,7 @@ public class Bullet : MonoBehaviour
 			{
 				for(int i=0; i<collidersInRange.Length; i++)
 				{
-					if(owner != null && !Team.isItMyAlly(owner, collidersInRange[i].gameObject))
-					{
-						if(collidersInRange[i].gameObject.GetComponent<Health>() != null)
-						{
-							collidersInRange[i].gameObject.GetComponent<Health>().ApplyChange(-damage);
-						}
-					}
-					else if(owner == null && !Team.isItMyAlly(ownerTag, collidersInRange[i].gameObject))
+                    if (!teamManager.IsFriendly(gameObject, collidersInRange[i].gameObject))
 					{
 						if(collidersInRange[i].gameObject.GetComponent<Health>() != null)
 						{
@@ -121,17 +100,6 @@ public class Bullet : MonoBehaviour
 			}
 		}
 		Destroy(gameObject); 
-	}
-
-	public void setOwner(GameObject newOwner)
-	{
-		owner = newOwner;
-		setOwnerTag (owner.tag);
-	}
-
-	public void setOwnerTag(string newOwnerTag)
-	{
-		ownerTag = newOwnerTag;
 	}
 
 	public void setDamage(float newDamage)

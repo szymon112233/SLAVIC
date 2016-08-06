@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameplayManager : MonoBehaviour {
+public class GameplayManager : MonoBehaviour 
+{
 
     //References to all Mechanics
-    public GameObject teamManager, mainCamera, squadManger, playerControll;
+    public TeamControll teamManager;
+    public Camera mainCamera;
+    public PlayerMovement playerControll;
+    
     public static GameplayManager instance = null;    
-	// Use this for initialization
-	void Start () {
+	
+    void Start () 
+    {
         instance = this;
-        teamManager = GameObject.Find("TeamManager");
-        mainCamera = GameObject.Find("Main Camera");
-        squadManger = GameObject.Find("SquadManager");
-        playerControll = GameObject.Find("PlayerControll");
+        teamManager = FindObjectOfType<TeamControll>();
+        playerControll = FindObjectOfType<PlayerMovement>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         /*if (squadManager.hasWon()) {
             //TO DO: GUI to load next level
         }
@@ -27,4 +31,6 @@ public class GameplayManager : MonoBehaviour {
             // TO DO: GUI to reload or exit
         }*/
 	}
+
+
 }

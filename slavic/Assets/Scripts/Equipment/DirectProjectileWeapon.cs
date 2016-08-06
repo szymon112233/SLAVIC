@@ -89,7 +89,6 @@ public class DirectProjectileWeapon : EquipmentInfo
 
 		aimRotation = Quaternion.LookRotation(directionToAim);
 		var newBulletInstance = (GameObject) Instantiate(bullet, transform.position + directionToAim * BULLET_SPAWN_DISTANCE, aimRotation) as GameObject;
-		newBulletInstance.GetComponent<Bullet> ().setOwner (gameObject);
 		if(newBulletInstance.GetComponent<Rigidbody>() != null)
 		{
 			newBulletInstance.GetComponent<Rigidbody>().AddForce(directionToAim * newBulletInstance.GetComponent<Bullet>().getFiringForce());

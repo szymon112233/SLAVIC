@@ -7,7 +7,7 @@ using PatrolAIEnums;
 /**
  * Klasa opisuje zadanie patrolowania przez aktorów obdarzonych sztuczną inteligencją.
  * */
-public class AIModule : MonoBehaviour
+public class PatrolAI : MonoBehaviour
 {
     public TargetResolvePolicy targetResolvePolicy;			//zachowanie po wykryciu celu
     public PatrolEndingPolicy patrolEndingPolicy;			//zachowanie po zrealizowaniu scieżki patrolowania
