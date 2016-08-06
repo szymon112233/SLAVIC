@@ -350,7 +350,7 @@ MonoBehaviour:
   audioSource: {fileID: 82000012857873078}
   firingSound: {fileID: 8300000, guid: d78228dc4a2ccab4988ae23a509c63c3, type: 3}
   reloadSound: {fileID: 0}
-  bullet: {fileID: 1000012857255368, guid: 92748cb46a6e78948a6f418c54185f88, type: 2}
+  bullet: {fileID: 1000012595447362, guid: 92748cb46a6e78948a6f418c54185f88, type: 2}
   ammoPerShot: 1
   bulletReloadTime: 1
   magazineReloadTime: 1
