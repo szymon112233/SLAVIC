@@ -9,12 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public Transform currentCamera;
     public float speed = 500f;
     private Rigidbody playerRig;
+    private FXManager fxManager;
+    private bool canStep = true;
 
 	// Use this for initialization
 	void Start () 
     {
         if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
         {
+            fxManager = controlledMinion.GetComponentInChildren<FXManager>();
             playerRig = controlledMinion.GetComponent<Rigidbody>();
             controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
         }
@@ -23,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     //FUTURE : We will change it to using MinionControl
     public void PosessMinion(MinionControll minion)
     {
+        fxManager = minion.GetComponent<FXManager>();
         controlledMinion = minion;
         playerRig = minion.GetComponent<Rigidbody>();
         controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
@@ -55,7 +59,19 @@ public class PlayerMovement : MonoBehaviour
         if (playerRig != null)
         {
             playerRig.velocity = movementDirection * speed * Time.deltaTime;
+            if ((movementDirection.z > 0 || movementDirection.x > 0) && fxManager != null && canStep)
+            {
+                canStep = false;
+                StartCoroutine("Step");
+            }
         }
+    }
+
+    IEnumerator Step()
+    {
+        fxManager.PlayHealClip();
+        yield return new WaitForSeconds(Random.RandomRange(0.4f, 1f));
+        canStep = true;
     }
     void AimAndShoot()
     {
