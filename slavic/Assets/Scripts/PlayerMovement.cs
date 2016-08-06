@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        playerRig = controlledMinion.GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame

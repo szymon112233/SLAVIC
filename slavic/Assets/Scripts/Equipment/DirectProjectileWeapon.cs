@@ -10,7 +10,7 @@ public class DirectProjectileWeapon : EquipmentInfo
 	public AudioClip firingSound;
 	public AudioClip reloadSound;
 	public GameObject bullet;
-	//public float coneOfFireAngle;
+	
 	public float ammoPerShot;
 	public float bulletReloadTime;
 	public float magazineReloadTime;
