@@ -15,8 +15,6 @@ public class GameplayManager : MonoBehaviour
     void Start () 
     {
         instance = this;
-        teamManager = FindObjectOfType<TeamControll>();
-        playerControll = FindObjectOfType<PlayerMovement>();
     }
 	
 	// Update is called once per frame
