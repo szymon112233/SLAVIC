@@ -25,6 +25,8 @@ public class MinionControll : MonoBehaviour
         {
             patrolAI.Deactivate();
             deathAnimationDuration -= Time.deltaTime;
+            FindObjectOfType<GameplayManager>().squadManager.DeleteSquadMember(this);
+            
             //TODO: animacja śmierci
 
             if (deathAnimationDuration <= 0)

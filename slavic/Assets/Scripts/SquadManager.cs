@@ -42,19 +42,7 @@ public class SquadManager : MonoBehaviour
             playerPosition = FindObjectOfType<GameplayManager>().playerControlledMinion.transform.position;
         }
 
-        int i = 0;
-        while(i < minions.Count)
-        {
-            if (!minions[i].GetHealth().IsAlive())
-            {
-                DeleteSquadMember(i);
-            }
-            else
-            {
-                i++;
-            }
-        }
-        for(i = 0; i < minions.Count; i++)
+        for(int i = 0; i < minions.Count; i++)
         {
             float spaceBetweenMinions = 360 / (membersInMinimalCircle * circleNumber);
             Vector3 positionInCircle = new Vector3(Mathf.Cos(spaceBetweenMinions * currentMinionNumber * Mathf.Deg2Rad),0, Mathf.Sin(spaceBetweenMinions * currentMinionNumber * Mathf.Deg2Rad));
@@ -81,6 +69,11 @@ public class SquadManager : MonoBehaviour
         {
             AddSquadMember(tempMinionControllList[i]);
         }
+    }
+
+    public void DeleteSquadMember(MinionControll minionToDelete)
+    {
+        minions.Remove(minionToDelete);
     }
 
     public void DeleteLastSquadMember()
