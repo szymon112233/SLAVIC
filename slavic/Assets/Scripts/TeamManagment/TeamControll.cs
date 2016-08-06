@@ -9,10 +9,12 @@ public class TeamControll : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        friendlyRelations = new Hashtable();
         friendlyRelations.Add(Team.FRIENDLY, true);
         friendlyRelations.Add(Team.HOSTILE, false);
         friendlyRelations.Add(Team.NEUTRAL, false);
 
+        hostileRelations = new Hashtable();
         hostileRelations.Add(Team.FRIENDLY, false);
         hostileRelations.Add(Team.HOSTILE, true);
         hostileRelations.Add(Team.NEUTRAL, false);
@@ -28,19 +30,19 @@ public class TeamControll : MonoBehaviour {
     {
         if(me!=null && another!=null)
         {
-            Team myTeam = me.GetComponent<Team>();
-            Team anotherTeam = another.GetComponent<Team>();
+            TeamID myTeam = me.GetComponent<TeamID>();
+            TeamID anotherTeam = another.GetComponent<TeamID>();
 
-            if (myTeam != null && anotherTeam != null)
+            if (myTeam.team != null && anotherTeam.team != null)
             {
-                switch (myTeam)
+                switch (myTeam.team)
                 {
                     case Team.FRIENDLY:
-                        return friendlyRelations[anotherTeam].Equals(false);
+                        return friendlyRelations[anotherTeam.team].Equals(false);
                         break;
 
                     case Team.HOSTILE:
-                        return hostileRelations[anotherTeam].Equals(false);
+                        return hostileRelations[anotherTeam.team].Equals(false);
                         break;
 
                     default:
@@ -61,19 +63,19 @@ public class TeamControll : MonoBehaviour {
     {
         if (me != null && another != null)
         {
-            Team myTeam = me.GetComponent<Team>();
-            Team anotherTeam = another.GetComponent<Team>();
+            TeamID myTeam = me.GetComponent<TeamID>();
+            TeamID anotherTeam = another.GetComponent<TeamID>();
 
-            if (myTeam != null && anotherTeam != null)
+            if (myTeam.team != null && anotherTeam.team != null)
             {
-                switch (myTeam)
+                switch (myTeam.team)
                 {
                     case Team.FRIENDLY:
-                        return friendlyRelations[anotherTeam].Equals(true);
+                        return friendlyRelations[anotherTeam.team].Equals(true);
                         break;
 
                     case Team.HOSTILE:
-                        return hostileRelations[anotherTeam].Equals(true);
+                        return hostileRelations[anotherTeam.team].Equals(true);
                         break;
 
                     default:

@@ -14,9 +14,9 @@ public class DirectProjectileWeapon : EquipmentInfo
 	public float ammoPerShot;
 	public float bulletReloadTime;
 	public float magazineReloadTime;
-	public int maxAmmoInMagazine;	//określa ile razy można wystrzelić
+	public float maxAmmoInMagazine;	//określa ile razy można wystrzelić
 
-	private int currentAmmoInMagazine;
+	private float currentAmmoInMagazine;
 	private float remainingReloadTime;
 	private Vector3 aimpoint;
 	private bool areWeAimingAtPoint;
@@ -72,7 +72,7 @@ public class DirectProjectileWeapon : EquipmentInfo
 		remainingReloadTime = bulletReloadTime;
 		if(maxAmmoInMagazine > 0)
 		{
-			currentAmmoInMagazine--;
+            currentAmmoInMagazine -= ammoPerShot;
 		}
 
 		//Strzelanie pociskami
@@ -110,7 +110,7 @@ public class DirectProjectileWeapon : EquipmentInfo
 			{
 				return true;
 			}
-			if(currentAmmoInMagazine > 0)
+            if (currentAmmoInMagazine >= ammoPerShot)
 			{
 				return true;
 			}
@@ -118,7 +118,7 @@ public class DirectProjectileWeapon : EquipmentInfo
 		return false;
 	}
 
-	public bool ReloadWeapon(int newAmmoCount)
+	public bool ReloadWeapon(float newAmmoCount)
 	{
 		if(remainingReloadTime <= 0)
 		{
@@ -142,17 +142,17 @@ public class DirectProjectileWeapon : EquipmentInfo
 		return remainingReloadTime;
 	}
 
-	public int GetMagazineAmmoCount()
+	public float GetMagazineAmmoCount()
 	{
 		return currentAmmoInMagazine;
 	}
 
-	public int GetMagazineSize()
+    public float GetMagazineSize()
 	{
 		return maxAmmoInMagazine;
 	}
 
-	public float GetAmmoPerShot()
+    public float GetAmmoPerShot()
 	{
 		return ammoPerShot;
 	}
