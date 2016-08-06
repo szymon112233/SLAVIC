@@ -18,18 +18,20 @@ public class EffectsManager : MonoBehaviour
     private bool bScreenShake = false;
     private float fScreenShakeTime;
     private float fScreenShakeMagn;
+    private float fScreenShakeDampen;
 
     public bool IsTransitionEnabled()
     { return pTransitionPart1 && pTransitionPart2 && pTransitionPart1.enabled && pTransitionPart2.enabled; }
 
     public bool IsScreenShakeEnabled() { return bScreenShake; }
-    public void SetScreenShake(bool bEnable, float fMagnitude = 0, float fTime = 0) // Magnitude [0:1] 
+    public void SetScreenShake(bool bEnable, float fTime = 0, float fMagnitude = 0, float fDampen = 0) // Magnitude [0:1], Dampen [0:1]
     {
         bScreenShake = bEnable;
         if (bEnable)
         {
             fScreenShakeMagn = fMagnitude;
             fScreenShakeTime = fTime;
+            fScreenShakeDampen = 1 - fDampen;
         }
     }
 
@@ -60,6 +62,7 @@ public class EffectsManager : MonoBehaviour
             SetTransition(false);
         }
 
+        SetScreenShake(true, 5, 0.5f, 0.05f);
     }
 	
 
@@ -100,8 +103,14 @@ public class EffectsManager : MonoBehaviour
             pCamera.transform.localPosition = Random.insideUnitSphere * fScreenShakeMagn;
             fScreenShakeTime -= Time.deltaTime;
 
+            fScreenShakeMagn *= fScreenShakeDampen;
+
             if (fScreenShakeTime < 0)
+            {
+                bScreenShake = false;
+                pCamera.transform.localPosition = new Vector3(0, 0, 0);
                 fScreenShakeTime = 0;
+            }
         }
     }
 }
