@@ -54,13 +54,18 @@ public class PlayerMovement : MonoBehaviour
     }
     void AimAndShoot()
     {
-        Vector3 observationPoint = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        
-        //Strzał
-        if (Input.GetButtonDown("Fire1"))
+        RaycastHit hit;
+        Ray ray = currentCamera.GetComponentInChildren<Camera>().ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(observationPoint);
-            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
+            Vector3 aimPoint = hit.point;
+            aimPoint.y = 1.5f;
+            if (Input.GetButtonDown("Fire1"))
+            {
+                controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(aimPoint);
+                controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
+            }
         }
     }
     private void CameraMovement()
