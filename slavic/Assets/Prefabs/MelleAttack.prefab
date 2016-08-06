@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   AOE: 1
-  initialForce: 100
+  initialForce: 500
   flyingTimeLimit: 50
 --- !u!135 &135000010407114756
 SphereCollider:

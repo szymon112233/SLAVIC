@@ -61,7 +61,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010008017624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -5}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94363b7daf401f64180f870f98832525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 5
-  optimalRange: 3
+  maxRange: 7
+  optimalRange: 4
   audioSource: {fileID: 0}
   firingSound: {fileID: 0}
   reloadSound: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24155c4cc4c1a64a9d1f4e9df20fec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
 --- !u!114 &114000010977159196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e888de499f4ce48b32f2ca86969ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  omniSenseRange: 5
+  omniSenseRange: 50
 --- !u!114 &114000012086243992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369644965ab47604ab67ad3183d7cde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentPieceAIs: []
+  equipmentPieceAIs:
+  - {fileID: 114000010035329566}
   consequenceBonus: 0.5
   lastTarget: {fileID: 0}
   lastUsedEquipmentPiece: {fileID: 0}
@@ -228,8 +229,8 @@ MonoBehaviour:
   patrolEndingPolicy: 2
   standByTime: 1
   searchTime: 1
-  defendChaseDistance: 5
-  destinationTolerence: 5
+  defendChaseDistance: 20
+  destinationTolerence: 10
   patrolPoints:
   - {x: 0, y: 0.1, z: 0}
   - {x: 10, y: 0.1, z: 0}
@@ -241,7 +242,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010008017624}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 3

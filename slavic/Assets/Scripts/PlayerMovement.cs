@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
     private Vector3 movementDirection;
     public Transform currentCamera;
-    public float speed =500f;
+    public float speed = 500f;
     private Rigidbody playerRig;
 
 	// Use this for initialization
 	void Start () 
     {
-        if (controlledMinion != null)
+        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
         {
             playerRig = controlledMinion.GetComponent<Rigidbody>();
             controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        if (controlledMinion != null )
+        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
         {
             Move();
             AimAndShoot();
