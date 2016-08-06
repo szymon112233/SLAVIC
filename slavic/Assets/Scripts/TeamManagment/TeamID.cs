@@ -3,5 +3,5 @@ using System.Collections;
 
 public class TeamID : MonoBehaviour
 {
-    public Team teamID;
+    public Team team;
 }
