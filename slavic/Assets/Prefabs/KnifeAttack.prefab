@@ -121,7 +121,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   AOE: 1
-  initialForce: 1500
-  flyingTimeLimit: 0.15
+  initialForce: 20
+  flyingTimeLimit: 4
 --- !u!135 &135000014161074920
 SphereCollider:
   m_ObjectHideFlags: 1
