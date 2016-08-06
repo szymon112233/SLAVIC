@@ -20,16 +20,11 @@ public class SquadManager : MonoBehaviour
     void Awake()
     {
         minions = new List<MinionControll>();
-        AddMutipleSquadMembers(FindObjectsOfType<MinionControll>());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            DeleteLastSquadMember();
-        }
         int circleNumber = 1;
         int currentMinionNumber = 0;
 
@@ -62,18 +57,18 @@ public class SquadManager : MonoBehaviour
 
     }
 
-    private void AddSquadMember(MinionControll tempMinionControll)
+    public void AddSquadMember(MinionControll tempMinionControll)
     {
         minions.Add(tempMinionControll);
     }
-    private void AddMutipleSquadMembers(MinionControll[] tempMinionControllList)
+    public void AddMutipleSquadMembers(MinionControll[] tempMinionControllList)
     {
         for (int i =0; i<tempMinionControllList.Length; i++)
         {
             AddSquadMember(tempMinionControllList[i]);
         }
     }
-    private void DeleteLastSquadMember()
+    public void DeleteLastSquadMember()
     {
         if(minions.Count>0)
         {
@@ -82,7 +77,7 @@ public class SquadManager : MonoBehaviour
         }
             
     }
-    private void DeleteSquadMember(int index)
+    public void DeleteSquadMember(int index)
     {
         if (minions.Count > 0 && minions.Count < index )
         {
