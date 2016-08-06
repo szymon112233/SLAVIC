@@ -15,22 +15,21 @@ public class PlayerMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
-        {
-            fxManager = controlledMinion.GetComponentInChildren<FXManager>();
-            playerRig = controlledMinion.GetComponent<Rigidbody>();
-            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
-        }
+        fxManager = controlledMinion.GetComponentInChildren<FXManager>();
+        playerRig = controlledMinion.GetComponent<Rigidbody>();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
         currentCameraPositionOffset = currentCamera.position - playerRig.transform.position;
 	}
 
-    //FUTURE : We will change it to using MinionControl
     public void PosessMinion(MinionControll minion)
     {
-        fxManager = minion.GetComponent<FXManager>();
-        controlledMinion = minion;
-        playerRig = minion.GetComponent<Rigidbody>();
-        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        if (minion != null)
+        {
+            controlledMinion = minion;
+            fxManager = minion.GetComponent<FXManager>();
+            playerRig = minion.GetComponent<Rigidbody>();
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+        }
     }
 	
 	// Update is called once per frame
