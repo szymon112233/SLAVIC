@@ -3,6 +3,11 @@ using System.Collections;
 
 public class FurbyAnimatorScript : MonoBehaviour {
 
+    public Sprite upSprite;
+    public Sprite downSprite;
+    public Sprite rightSprite;
+    public Sprite leftSprite;
+
     private Animator animator;
 
 	void Awake()
@@ -18,5 +23,15 @@ public class FurbyAnimatorScript : MonoBehaviour {
     public void PlayJumpAnimation()
     {
         animator.SetTrigger("Jump");
+    }
+
+    public void PlayHurtAnimation()
+    {
+        animator.SetTrigger("Hurt");
+    }
+
+    public void PlayAttackAnimation()
+    {
+        animator.SetTrigger("Attack");
     }
 }
