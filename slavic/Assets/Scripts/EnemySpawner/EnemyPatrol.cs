@@ -43,7 +43,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         for (int i = 0; i < minions.Count; i++)
         {
-            minions[i].GetPatrolAI().SetPatrolRoute(defaultPatrolRoute);
+            minions[i].GetPatrolAI().SetPatrolRoute(currentTarget.transform.position); 
         }
     }
 
@@ -51,7 +51,7 @@ public class EnemyPatrol : MonoBehaviour
     {
         for (int i = 0; i < minions.Count; i++)
         {
-            minions[i].GetPatrolAI().SetPatrolRoute(currentTarget.transform.position);
+            minions[i].GetPatrolAI().SetPatrolRoute(defaultPatrolRoute);
         }
     }
 

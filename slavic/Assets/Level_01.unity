@@ -416,12 +416,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012254095720, guid: 453b83cb829dac24bb76ba4ae0e2e9da,
-        type: 2}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 1000010683982608, guid: fda3c17f38e47ec4fa6026d831d8200b,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 453b83cb829dac24bb76ba4ae0e2e9da, type: 2}
   m_IsPrefabParent: 0
@@ -709,12 +703,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114000011257890096, guid: 58a1cf230f1ad0b498ae7bcb78f62875,
-        type: 2}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 1000010086541874, guid: 38eed3feba8d3e94db0e2313b4995f49,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58a1cf230f1ad0b498ae7bcb78f62875, type: 2}
   m_IsPrefabParent: 0
@@ -833,12 +821,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114000011257890096, guid: 58a1cf230f1ad0b498ae7bcb78f62875,
-        type: 2}
-      propertyPath: bullet
-      value: 
-      objectReference: {fileID: 1000010086541874, guid: 38eed3feba8d3e94db0e2313b4995f49,
-        type: 2}
     - target: {fileID: 1000010335771962, guid: 58a1cf230f1ad0b498ae7bcb78f62875, type: 2}
       propertyPath: m_Name
       value: PlayerMinion
