@@ -46,10 +46,17 @@ public class PatrolAI : MonoBehaviour
     //private EquipmentAI equipmentAI;  //teraz pobierane przez equipment manager
     private EquipmentManager equipmentManager;
 
+    void Awake()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+        minionControll = GetComponent<MinionControll>();
+        equipmentManager = GetComponent<EquipmentManager>();
+    }
+
     /**
      * Inicjalizacja po utworzeniu.
      * */
-    void Awake()
+    void Start()
     {
         rightListMovement = true;
         targetResolve = TargetResolveEnum.DONE;
@@ -62,10 +69,6 @@ public class PatrolAI : MonoBehaviour
             patrolPoints = new List<Vector3>();
         }
         patrolPointsIndex = 0;
-
-        navAgent = GetComponent<NavMeshAgent>();
-        minionControll = GetComponent<MinionControll>();
-        equipmentManager = GetComponent<EquipmentManager>();
 
         isActive = true;
     }
