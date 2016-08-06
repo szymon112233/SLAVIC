@@ -8,6 +8,7 @@ public class GameplayManager : MonoBehaviour
     public TeamControll teamManager;
     public Camera mainCamera;
     public PlayerMovement playerControll;
+    public MinionControll playerControlledMinion;
     
     public static GameplayManager instance = null;    
 	
