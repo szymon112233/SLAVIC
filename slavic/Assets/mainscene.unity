@@ -578,13 +578,14 @@ GameObject:
   - 4: {fileID: 2090536944}
   - 136: {fileID: 2090536946}
   - 54: {fileID: 2090536942}
-  - 114: {fileID: 2090536952}
-  - 114: {fileID: 2090536950}
-  - 114: {fileID: 2090536949}
   - 195: {fileID: 2090536948}
-  - 114: {fileID: 2090536947}
-  - 114: {fileID: 2090536945}
+  - 114: {fileID: 2090536953}
   - 114: {fileID: 2090536951}
+  - 114: {fileID: 2090536949}
+  - 114: {fileID: 2090536945}
+  - 114: {fileID: 2090536950}
+  - 114: {fileID: 2090536947}
+  - 114: {fileID: 2090536952}
   - 114: {fileID: 2090536943}
   m_Layer: 0
   m_Name: TestMinion
@@ -772,3 +773,14 @@ MonoBehaviour:
   corpse: {fileID: 0}
   MAX_HEALTH: 5
   REGENERATION: 0
+--- !u!114 &2090536953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2090536941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78107d877d45eca4296d18e386df9ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
