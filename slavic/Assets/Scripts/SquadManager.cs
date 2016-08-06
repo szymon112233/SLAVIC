@@ -14,8 +14,6 @@ public class SquadManager : MonoBehaviour
     public float distanceBetweenCircles = 3f;
     public int membersInMinimalCircle = 6;
 
-
-
     // Use this for initialization
     void Awake()
     {
