@@ -5,7 +5,7 @@ public class GameplayManager : MonoBehaviour {
 
     //References to all Mechanics
     public GameObject teamManager, mainCamera, squadManger, playerControll;
-    public static GameManager instance = null;    
+    public static GameplayManager instance = null;    
 	// Use this for initialization
 	void Start () {
         instance = this;
