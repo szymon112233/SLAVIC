@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
         playerRig = controlledMinion.GetComponent<Rigidbody>();
-        currentCameraPositionOffset = currentCamera.position - playerRig.transform.position;
+        currentCameraPositionOffset = new Vector3(0, 16.93f, -37.85f);    //currentCamera.position - playerRig.transform.position;
 	}
 
     public void PosessMinion(MinionControll minion)
