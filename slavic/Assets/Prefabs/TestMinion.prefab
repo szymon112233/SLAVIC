@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94363b7daf401f64180f870f98832525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRange: 7
-  optimalRange: 4
+  maxRange: 3
+  optimalRange: 1
   audioSource: {fileID: 0}
   firingSound: {fileID: 0}
   reloadSound: {fileID: 0}
@@ -188,9 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6762d9a4d978bcd4887e715d1b7c4260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  woundSound: {fileID: 0}
-  healSound: {fileID: 0}
   corpse: {fileID: 0}
   MAX_HEALTH: 5
   REGENERATION: 0
@@ -230,11 +227,11 @@ MonoBehaviour:
   standByTime: 1
   searchTime: 1
   defendChaseDistance: 20
-  destinationTolerence: 10
+  destinationTolerence: 5
   patrolPoints:
   - {x: 0, y: 0.1, z: 0}
-  - {x: 10, y: 0.1, z: 0}
-  - {x: 0, y: 0.1, z: 10}
+  - {x: 20, y: 0.1, z: 0}
+  - {x: 0, y: 0.1, z: 20}
 --- !u!136 &136000012911636418
 CapsuleCollider:
   m_ObjectHideFlags: 1
