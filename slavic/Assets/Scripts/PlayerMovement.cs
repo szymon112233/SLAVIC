@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public MinionControll controlledMinion;
     private Vector3 currentCameraPositionOffset;
+    private float cameraXRotation = 66.62901f;
     private Vector3 movementDirection;
     public Transform currentCamera;
     public float speed = 500f;
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     {
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
         playerRig = controlledMinion.GetComponent<Rigidbody>();
-        currentCameraPositionOffset = new Vector3(0, 16.93f, -37.85f);    //currentCamera.position - playerRig.transform.position;
+        currentCameraPositionOffset = new Vector3(0, 16.93f, -7.85f);    //currentCamera.position - playerRig.transform.position;
 	}
 
     public void PosessMinion(MinionControll minion)
