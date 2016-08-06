@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject controlledMinion;
     private Vector3 currentCameraPositionOffset = new Vector3(0.0f, 23.0f, -28.0f);
     private Vector3 movementDirection;
-    private PatrolAI minionAI;
     public Transform currentCamera;
     public float speed =500f;
     private Rigidbody playerRig;
@@ -14,16 +13,15 @@ public class PlayerMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-      playerRig = controlledMinion.GetComponent<Rigidbody>();
-      minionAI = controlledMinion.GetComponent<PatrolAI>();
-      minionAI.Deactivate();
+        playerRig = controlledMinion.GetComponent<Rigidbody>();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
 	}
+
     //FUTURE : We will change it to using MinionControl
     public void PosessMinion(GameObject minion)
     {
         playerRig = minion.GetComponent<Rigidbody>();
-        minionAI = minion.GetComponent<PatrolAI>();
-        minionAI.Deactivate();
+        controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
     }
 	
 	// Update is called once per frame
@@ -58,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
         //Strzał
         if (Input.GetButtonDown("Fire1"))
         {
-            //TODO: strzelanie
+            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Aim(observationPoint);
+            controlledMinion.GetComponent<MinionControll>().GetEquipmentManager().GetCurrentWeapon().Fire();
         }
     }
     private void CameraMovement()

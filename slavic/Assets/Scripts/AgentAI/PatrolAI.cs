@@ -49,7 +49,7 @@ public class PatrolAI : MonoBehaviour
     /**
      * Inicjalizacja po utworzeniu.
      * */
-    void Start()
+    void Awake()
     {
         rightListMovement = true;
         targetResolve = TargetResolveEnum.DONE;

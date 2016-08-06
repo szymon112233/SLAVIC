@@ -14,9 +14,6 @@ public class ExitEnter : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D other)
     {
-        Minion minion = other.GetComponent<Minion>();
-        if (minion.team == Team.FRIENDLY)
-            man.CheckWin();
-
+        
     }
 }
