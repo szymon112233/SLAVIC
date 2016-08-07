@@ -34,7 +34,8 @@ public class SquadManager : MonoBehaviour
             }
             else
             {
-                //TODO przegrana.
+                FindObjectOfType<GameplayManager>().GetAnnoucmentText().text = "Defeat";
+                FindObjectOfType<GameplayManager>().EndGame();
             }
         }
         else

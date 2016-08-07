@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameplayManager : MonoBehaviour 
@@ -8,20 +9,35 @@ public class GameplayManager : MonoBehaviour
     public EffectsManager effectsManager;
     public SquadManager squadManager;
     public MinionControll playerControlledMinion;
-
-    private bool isDefeat;
+    public Text annoucmentText;
+    private bool isEndLevel;
+    private float endLevelTimeout = 3f;
 
     void Start () 
     {
-        isDefeat = false;
+        isEndLevel = false;
+        annoucmentText.text = "";
     }
 	
 	void Update () 
     {
+        if (isEndLevel)
+        {
+            endLevelTimeout -= Time.deltaTime;
+            if (endLevelTimeout <= 0)
+            {
+                Application.LoadLevel("MainMenu");
+            }
+        }
 	}
 
-    public void Defeat()
+    public void EndGame()
     {
-        isDefeat = true;
+        isEndLevel = true;
+    }
+
+    public Text GetAnnoucmentText()
+    {
+        return annoucmentText;
     }
 }
