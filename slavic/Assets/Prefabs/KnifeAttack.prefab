@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  AOE: 1
+  AOE: 0.1
   initialForce: 20
   flyingTimeLimit: 0.3
 --- !u!135 &135000014161074920

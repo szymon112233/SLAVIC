@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public GameObject corpse;    
+    public GameObject corpse;
 
     public float MAX_HEALTH;
     private float currentHealth;
@@ -12,6 +13,7 @@ public class Health : MonoBehaviour
 
     private FXManager fxManager;
     private FurbyAnimatorScript animatorScript;
+    private Slider slider;
 
     void Awake()
     {
@@ -23,6 +25,12 @@ public class Health : MonoBehaviour
     {
         currentHealth = MAX_HEALTH;
         alive = true;
+        slider = GetComponentInChildren<Slider>(); //We get a health slider, and set its start state.
+        if (slider != null)
+        {
+            slider.value = currentHealth;
+            slider.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -41,6 +49,11 @@ public class Health : MonoBehaviour
         if (alive)
         {
             currentHealth += change;
+            if (slider != null)
+            {
+                slider.gameObject.SetActive(true);   //Turn on the health slider and change its value.
+                slider.value = currentHealth;
+            }
             if (currentHealth > MAX_HEALTH)
             {
                 currentHealth = MAX_HEALTH;
