@@ -3,9 +3,9 @@ using System.Collections;
 
 public class FurbyAnimatorScript : MonoBehaviour {
 
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite rightSprite;
+    //public Sprite upSprite;
+    //public Sprite downSprite;
+    //public Sprite rightSprite;
     public Sprite leftSprite;
 
     private Animator animator;
@@ -15,6 +15,8 @@ public class FurbyAnimatorScript : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        leftSprite = spriteRenderer.sprite;
     }        
 
 	public void PlayDeathAnimation()
@@ -45,13 +47,15 @@ public class FurbyAnimatorScript : MonoBehaviour {
         }
         else
         {
+            
+
             animator.SetBool("IsWalking", false);
             return;
         }
 
         if (IsRight(walk))
         {
-            SetSprite(rightSprite);
+            //SetSprite(rightSprite);
 
             animator.SetBool("WalkRight", true);
 
@@ -66,12 +70,13 @@ public class FurbyAnimatorScript : MonoBehaviour {
 
             spriteRenderer.flipY = false;
         }
-
+        /*
         if (IsUp(walk))
             SetSprite(upSprite);
 
         if (IsDown(walk))
             SetSprite(downSprite);
+            */
     }
 
     private void SetSprite(Sprite sprite)

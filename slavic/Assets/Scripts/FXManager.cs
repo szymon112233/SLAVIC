@@ -85,10 +85,26 @@ public class FXManager : MonoBehaviour {
 
     private void PlayParticleSystem(ParticleSystem particle)
     {
-        if(!particle.isPlaying)
+        //if(particle == null) Debug.Log("BloodSplatter");
+
+        //particle.Play();
+
+        
+
+        ParticleSystem.EmissionModule module = particle.emission;
+
+        if (!particle.isPlaying)
         {
-            particle.Play(true);
+            particle.Simulate(0.0f, true, true);
+            module.enabled = true;
+            particle.Play();
         }
+        //else
+        {
+
+        }
+
+        
     }
 
     private void PlayParticleSystemLooped(ParticleSystem particle)

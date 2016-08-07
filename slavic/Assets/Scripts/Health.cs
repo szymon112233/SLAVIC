@@ -15,8 +15,8 @@ public class Health : MonoBehaviour
 
     void Awake()
     {
-        fxManager = GetComponentInChildren<FXManager>();
-        animatorScript = GetComponentInChildren<FurbyAnimatorScript>();
+        fxManager = GetComponent<FXManager>();
+        animatorScript = GetComponent<FurbyAnimatorScript>();
     }
 
     void Start()
@@ -60,6 +60,8 @@ public class Health : MonoBehaviour
             {
                 if (fxManager != null)
                 {
+                    Debug.Log("FXManager");
+
                     fxManager.PlayHurtClip();
                     fxManager.PlayBloodSplatter();
                 }
