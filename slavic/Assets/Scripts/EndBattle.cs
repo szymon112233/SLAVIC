@@ -36,20 +36,23 @@ public class EndBattle : MonoBehaviour
                 return;
             }
         }
-
-        isVictory = true;
-        FindObjectOfType<GameplayManager>().GetAnnoucmentText().text = "Victory";
-        FindObjectOfType<GameplayManager>().EndGame();
-        return;
+        if (!isVictory)
+        {
+            isVictory = true;
+            FindObjectOfType<GameplayManager>().EndGame("Victory");
+            return;
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<MinionControll>() != null && other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControll.controlledMinion)
         {
+            if (!isEscape)
+            {
                 isEscape = true;
-                FindObjectOfType<GameplayManager>().GetAnnoucmentText().text = "Escaped";
-                FindObjectOfType<GameplayManager>().EndGame();
+                FindObjectOfType<GameplayManager>().EndGame("Escaped");
+            }
         }
     }
 }

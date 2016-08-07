@@ -34,9 +34,7 @@ public class SquadManager : MonoBehaviour
             }
             else if (!FindObjectOfType<GameplayManager>().GetIsEndLevel())
             {
-                FindObjectOfType<GameplayManager>().GetAnnoucmentText().text = "Defeat";
-                FindObjectOfType<EffectsManager>().SetTransition(true, 3);
-                FindObjectOfType<GameplayManager>().EndGame();
+                FindObjectOfType<GameplayManager>().EndGame("Defeat");
             }
         }
         else

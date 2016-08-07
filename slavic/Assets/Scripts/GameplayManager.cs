@@ -11,6 +11,7 @@ public class GameplayManager : MonoBehaviour
     public MinionControll playerControlledMinion;
     public Text annoucmentText;
     public Text foodText;
+    public int foodNeededToVictory = 10;
     private string previousAnnoucment;
     private bool isEndLevel;
     private float endLevelTimeout = 5f;
@@ -21,6 +22,11 @@ public class GameplayManager : MonoBehaviour
     {
         foodGathered = newValue;
         foodText.text = foodGathered.ToString();
+
+        if (foodGathered >= foodNeededToVictory)
+        {
+            EndGame("Well fed!");
+        }
     }
 
     void Start () 
@@ -66,8 +72,10 @@ public class GameplayManager : MonoBehaviour
         }
 	}
 
-    public void EndGame()
+    public void EndGame(string text)
     {
+        GetAnnoucmentText().text = text;
+        GetComponent<EffectsManager>().SetTransition(true, 3);
         isEndLevel = true;
     }
 
