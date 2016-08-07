@@ -3,23 +3,27 @@ using System.Collections;
 
 public class Food : MonoBehaviour {
 
-    public GameplayManager manager;
+    private GameplayManager manager;
+    public AudioClip clip;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
-	
+        manager = FindObjectOfType<GameplayManager>();
+
 	}
 
     void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.GetComponent<TeamID>())
         {
             if (other.gameObject.GetComponent<TeamID>().team == Team.FRIENDLY)
             {
                 if (manager)
                     manager.SetFood(manager.GetFood() + 1);
-                Destroy(gameObject);
+                AudioSource.PlayClipAtPoint(clip, transform.position);
+                Destroy(transform.parent.gameObject);
             }
         }
     }
