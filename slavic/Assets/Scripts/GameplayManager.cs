@@ -14,8 +14,13 @@ public class GameplayManager : MonoBehaviour
     private bool isEndLevel;
     private float endLevelTimeout = 5f;
     private bool isPause;
+    private int foodGathered;
+    public int GetFood() { return foodGathered; }
+    public void SetFood(int newValue) { foodGathered = newValue; }
+
     void Start () 
     {
+        foodGathered = 0;
         isEndLevel = false;
         isPause = false;
         annoucmentText.text = "";
