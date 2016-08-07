@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
@@ -19,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
         playerRig = controlledMinion.GetComponent<Rigidbody>();
         currentCameraPositionOffset = new Vector3(0, 16.93f, -7.85f);    //currentCamera.position - playerRig.transform.position;
-        minion.GetComponentInChildren<Image>().enabled = true;
+        controlledMinion.GetComponentInChildren<Image>().enabled = true;
 	}
 
     public void PosessMinion(MinionControll minion)
