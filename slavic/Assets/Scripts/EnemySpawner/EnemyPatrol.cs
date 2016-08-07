@@ -19,6 +19,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
+            currentTarget = null;
             RestoreOriginalPatrolRoute();
         }
 	}
