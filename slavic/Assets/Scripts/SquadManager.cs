@@ -32,9 +32,10 @@ public class SquadManager : MonoBehaviour
                 FindObjectOfType<GameplayManager>().playerControlledMinion = minions[minions.Count - 1];
                 DeleteLastSquadMember();
             }
-            else
+            else if (!FindObjectOfType<GameplayManager>().GetIsEndLevel())
             {
                 FindObjectOfType<GameplayManager>().GetAnnoucmentText().text = "Defeat";
+                FindObjectOfType<EffectsManager>().SetTransition(true, 3);
                 FindObjectOfType<GameplayManager>().EndGame();
             }
         }

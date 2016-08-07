@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
     public MinionControll controlledMinion;
+    public EffectsManager manager;
     private Vector3 currentCameraPositionOffset;
     private float cameraXRotation = 66.62901f;
     private Vector3 movementDirection;
@@ -27,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (minion != null)
         {
+            if (manager)
+            {
+                manager.SetScreenShake(true, 2, 0.8f, 0.05f);
+            }
             controlledMinion = minion;
             fxManager = minion.GetComponent<FXManager>();
             playerRig = minion.GetComponent<Rigidbody>();

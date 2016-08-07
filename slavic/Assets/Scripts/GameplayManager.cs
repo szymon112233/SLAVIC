@@ -12,7 +12,7 @@ public class GameplayManager : MonoBehaviour
     public Text annoucmentText;
     private string previousAnnoucment;
     private bool isEndLevel;
-    private float endLevelTimeout = 3f;
+    private float endLevelTimeout = 5f;
     private bool isPause;
     void Start () 
     {
@@ -63,5 +63,10 @@ public class GameplayManager : MonoBehaviour
     public Text GetAnnoucmentText()
     {
         return annoucmentText;
+    }
+
+    public bool GetIsEndLevel()
+    {
+        return isEndLevel;
     }
 }

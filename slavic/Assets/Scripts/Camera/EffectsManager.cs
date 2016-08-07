@@ -12,6 +12,7 @@ public class EffectsManager : MonoBehaviour
     private float fTransitonMaxIntensity;
     private float fTransitionDelta;
     private bool bTransitionDirection = true;
+    private float m_fDelay;
 
     //Screen Shake
     private Camera pCamera;
@@ -35,8 +36,9 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void SetTransition(bool bEnable)//true zeby zaciemnic; false ustawia zaciemnienie na 100% i powoli schodzi do 0
+    public void SetTransition(bool bEnable, float fDelay = 0)//true zeby zaciemnic; false ustawia zaciemnienie na 100% i powoli schodzi do 0
     {
+        m_fDelay = fDelay;
         bTransitionDirection = bEnable;
         fTransitionDelta = fTransitonMaxIntensity / fTransitionLength;
 
@@ -62,7 +64,7 @@ public class EffectsManager : MonoBehaviour
             SetTransition(false);
         }
 
-        SetScreenShake(true, 5, 0.5f, 0.05f);
+        //SetScreenShake(true, 5, 0.5f, 0.05f);
     }
 	
 
@@ -74,12 +76,17 @@ public class EffectsManager : MonoBehaviour
             //Zaciemnianie
             if (bTransitionDirection && pTransitionPart1.intensity != fTransitonMaxIntensity)
             {
-                float fDeltaIntensity = Time.deltaTime * fTransitionDelta;
-                pTransitionPart1.intensity = pTransitionPart2.intensity = pTransitionPart1.intensity + fDeltaIntensity;
-
-                if (pTransitionPart1.intensity > fTransitonMaxIntensity)
+                if (m_fDelay > 0)
+                    m_fDelay -= Time.deltaTime;
+                else
                 {
-                    pTransitionPart1.intensity = pTransitionPart2.intensity = fTransitonMaxIntensity;
+                    float fDeltaIntensity = Time.deltaTime * fTransitionDelta;
+                    pTransitionPart1.intensity = pTransitionPart2.intensity = pTransitionPart1.intensity + fDeltaIntensity;
+
+                    if (pTransitionPart1.intensity > fTransitonMaxIntensity)
+                    {
+                        pTransitionPart1.intensity = pTransitionPart2.intensity = fTransitonMaxIntensity;
+                    }
                 }
             }
             //Rozjasnianie
