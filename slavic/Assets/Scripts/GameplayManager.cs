@@ -75,7 +75,7 @@ public class GameplayManager : MonoBehaviour
     public void EndGame(string text)
     {
         GetAnnoucmentText().text = text;
-        GetComponent<EffectsManager>().SetTransition(true, 3);
+        //GetComponent<EffectsManager>().SetTransition(true, 3);
         isEndLevel = true;
     }
 
