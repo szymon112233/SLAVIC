@@ -4372,7 +4372,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1114311441}
   m_Layer: 0
-  m_Name: StartZone
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4605,7 +4605,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1139656585}
   m_Layer: 0
-  m_Name: WetZone
+  m_Name: River
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
