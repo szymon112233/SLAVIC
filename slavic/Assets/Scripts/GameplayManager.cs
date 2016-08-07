@@ -10,13 +10,18 @@ public class GameplayManager : MonoBehaviour
     public SquadManager squadManager;
     public MinionControll playerControlledMinion;
     public Text annoucmentText;
+    public Text foodText;
     private string previousAnnoucment;
     private bool isEndLevel;
     private float endLevelTimeout = 5f;
     private bool isPause;
     private int foodGathered;
     public int GetFood() { return foodGathered; }
-    public void SetFood(int newValue) { foodGathered = newValue; }
+    public void SetFood(int newValue)
+    {
+        foodGathered = newValue;
+        foodText.text = foodGathered.ToString();
+    }
 
     void Start () 
     {
@@ -24,6 +29,7 @@ public class GameplayManager : MonoBehaviour
         isEndLevel = false;
         isPause = false;
         annoucmentText.text = "";
+        foodText.text = "0";
     }
 	
 	void Update () 
