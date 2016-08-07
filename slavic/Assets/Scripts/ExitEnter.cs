@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ExitEnter : MonoBehaviour {
-    public ScenarioManager man;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,8 +12,11 @@ public class ExitEnter : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.GetComponent<TeamID>().team == Team.FRIENDLY)
+        {
+
+        }
     }
 }
