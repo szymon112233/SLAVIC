@@ -10,6 +10,7 @@ public class GameplayManager : MonoBehaviour
     public SquadManager squadManager;
     public MinionControll playerControlledMinion;
     public Text annoucmentText;
+    private string previousAnnoucment;
     private bool isEndLevel;
     private float endLevelTimeout = 3f;
     private bool isPause;
@@ -31,21 +32,24 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (isPause)
             {
                 isPause = false;
+                annoucmentText.text = previousAnnoucment;
                 Time.timeScale = 1;
             }
             else
             {
                 isPause = true;
+                previousAnnoucment = annoucmentText.text;
+                annoucmentText.text = "Pause";
                 Time.timeScale = 0;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.LoadLevel("MainMenu");
         }
