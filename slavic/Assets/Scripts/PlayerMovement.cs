@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 500f;
     private Rigidbody playerRig;
     private FXManager fxManager;
+    private FurbyAnimatorScript animatorScript;
     private bool canStep = true;
     private SquadManager squadManager;
 
@@ -25,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         controlledMinion.GetComponentInChildren<Image>().enabled = true;
         currentCameraCamera = currentCamera.GetComponentInChildren<Camera>().gameObject.transform;
         squadManager = FindObjectOfType<GameplayManager>().squadManager;
+
+        animatorScript = controlledMinion.GetComponentInChildren<FurbyAnimatorScript>();
 	}
 
     public void PosessMinion(MinionControll minion)
@@ -76,6 +79,11 @@ public class PlayerMovement : MonoBehaviour
                 canStep = false;
                 StartCoroutine("Step");
             }
+        }
+
+        if(animatorScript != null)
+        {
+            animatorScript.PlayWalkAnimationIfWalking(movementDirection);
         }
     }
 

@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
     void Awake()
     {
         fxManager = GetComponent<FXManager>();
-        animatorScript = GetComponent<FurbyAnimatorScript>();
+        animatorScript = GetComponentInChildren<FurbyAnimatorScript>();
     }
 
     void Start()

@@ -30,7 +30,7 @@ public class FurbyAnimatorScript : MonoBehaviour {
     }
 
     public void PlayHurtAnimation()
-    {
+    {        
         animator.SetTrigger("Hurt");
     }
 
@@ -47,10 +47,7 @@ public class FurbyAnimatorScript : MonoBehaviour {
         }
         else
         {
-            
-
             animator.SetBool("IsWalking", false);
-            return;
         }
 
         if (IsRight(walk))
@@ -68,7 +65,7 @@ public class FurbyAnimatorScript : MonoBehaviour {
 
             animator.SetBool("WalkRight", false);
 
-            spriteRenderer.flipY = false;
+            spriteRenderer.flipX = false;
         }
         /*
         if (IsUp(walk))
