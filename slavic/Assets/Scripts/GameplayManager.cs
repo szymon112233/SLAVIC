@@ -17,16 +17,15 @@ public class GameplayManager : MonoBehaviour
     private float endLevelTimeout = 5f;
     private bool isPause;
     private int foodGathered;
-    public int GetFood() { return foodGathered; }
-    public void SetFood(int newValue)
-    {
-        foodGathered = newValue;
-        foodText.text = foodGathered.ToString();
 
-        if (foodGathered >= foodNeededToVictory)
-        {
-            EndGame("Well fed!");
-        }
+    public int GetFood() 
+    { 
+        return foodGathered; 
+    }
+
+    public void IncreaseFood()
+    {
+        foodGathered++;
     }
 
     void Start () 
@@ -74,9 +73,12 @@ public class GameplayManager : MonoBehaviour
 
     public void EndGame(string text)
     {
-        GetAnnoucmentText().text = text;
-        FindObjectOfType<EffectsManager>().SetTransition(true, 3);
-        isEndLevel = true;
+        if (!isEndLevel)
+        {
+            GetAnnoucmentText().text = text;
+            FindObjectOfType<EffectsManager>().SetTransition(true, 3);
+            isEndLevel = true;
+        }
     }
 
     public Text GetAnnoucmentText()

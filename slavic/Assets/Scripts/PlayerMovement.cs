@@ -7,21 +7,24 @@ public class PlayerMovement : MonoBehaviour
     public MinionControll controlledMinion;
     public EffectsManager manager;
     private Vector3 currentCameraPositionOffset;
-    private float cameraXRotation = 66.62901f;
     private Vector3 movementDirection;
     public Transform currentCamera;
+    private Transform currentCameraCamera;
     public float speed = 500f;
     private Rigidbody playerRig;
     private FXManager fxManager;
     private bool canStep = true;
+    private SquadManager squadManager;
 
 	// Use this for initialization
 	void Start () 
     {
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
         playerRig = controlledMinion.GetComponent<Rigidbody>();
-        currentCameraPositionOffset = new Vector3(0, 16.93f, -7.85f);    //currentCamera.position - playerRig.transform.position;
+        currentCameraPositionOffset = new Vector3(0, 16.93f, -7.85f);
         controlledMinion.GetComponentInChildren<Image>().enabled = true;
+        currentCameraCamera = currentCamera.GetComponentInChildren<Camera>().gameObject.transform;
+        squadManager = FindObjectOfType<GameplayManager>().squadManager;
 	}
 
     public void PosessMinion(MinionControll minion)
@@ -79,9 +82,10 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Step()
     {
         fxManager.PlayHealClip();
-        yield return new WaitForSeconds(Random.RandomRange(0.4f, 1f));
+        yield return new WaitForSeconds(Random.Range(0.4f, 1f));
         canStep = true;
     }
+
     void AimAndShoot()
     {
         RaycastHit hit;
@@ -98,9 +102,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     private void CameraMovement()
     {
         currentCamera.transform.position = playerRig.transform.position + currentCameraPositionOffset;
-    }
 
+        if (squadManager.minions.Count > 0)
+        {
+            currentCameraCamera.localPosition = new Vector3(0, 0, -3) * Mathf.Floor(squadManager.minions.Count / 6);   
+        }
+    }
 }

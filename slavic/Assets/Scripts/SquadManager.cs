@@ -55,7 +55,6 @@ public class SquadManager : MonoBehaviour
                 currentMinionNumber = 0;
             }
         }
-
     }
 
     public void AddSquadMember(MinionControll tempMinionControll)

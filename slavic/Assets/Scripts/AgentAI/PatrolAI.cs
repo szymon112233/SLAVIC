@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 using PatrolAIEnums;
 
@@ -26,6 +27,7 @@ public class PatrolAI : MonoBehaviour
     private float standByTimeElapsed;                       //Licznik czasu poświęconego na oczekiwanie.
     private int patrolPointsIndex;							//indeks na miejsce listy z aktualnym punktem TODO: zamienić na wskaźnik
     private bool rightListMovement;							//kierunek przechodzenia po liście punktów tworzących scieżkę patrolowania
+    private Mutex mutex;
 
     private MinionControll minionControll;
 
@@ -51,6 +53,7 @@ public class PatrolAI : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         minionControll = GetComponent<MinionControll>();
         equipmentManager = GetComponent<EquipmentManager>();
+        mutex = new Mutex();
     }
 
     /**
@@ -58,6 +61,8 @@ public class PatrolAI : MonoBehaviour
      * */
     void Start()
     {
+        mutex.WaitOne();
+        
         rightListMovement = true;
         targetResolve = TargetResolveEnum.DONE;
 
@@ -71,6 +76,8 @@ public class PatrolAI : MonoBehaviour
         patrolPointsIndex = 0;
 
         isActive = true;
+
+        mutex.ReleaseMutex();
     }
 
     /**
@@ -90,9 +97,13 @@ public class PatrolAI : MonoBehaviour
      * */
     private void AgentBehaviourUpdate()
     {
+        mutex.WaitOne();
+
         SenseUpdate();
         EquipmentUpdate();
         PatrolBehaviourUpdate();
+
+        mutex.ReleaseMutex();
     }
 
     /**
@@ -623,23 +634,39 @@ public class PatrolAI : MonoBehaviour
      * */
     public void SetPatrolRoute(List<Vector3> newPatrolList)
     {
-        if (patrolPoints == null)
-        {
-            patrolPoints = new List<Vector3>();
-        }
+        mutex.WaitOne();
+        
+        patrolPointsIndex = 0;
         patrolPoints.Clear();
-        patrolPoints = newPatrolList;
+        if (newPatrolList == null || newPatrolList.Count <= 0)
+        {
+            patrolPoints.Add(transform.position);
+        }
+        else
+        {
+            patrolPoints = newPatrolList;
+        }
         RestartState();
+
+        mutex.ReleaseMutex();
     }
 
     public void SetPatrolRoute(Vector3 newPoint)
     {
-        if (patrolPoints == null)
-        {
-            patrolPoints = new List<Vector3>();
-        }
+        mutex.WaitOne();
+        
+        patrolPointsIndex = 0;
         patrolPoints.Clear();
-        patrolPoints.Add(newPoint);
+        if (newPoint == null)
+        {
+            patrolPoints.Add(transform.position);
+        }
+        else
+        {
+            patrolPoints.Add(newPoint);
+        }
+
+        mutex.ReleaseMutex();
     }
 
     /**
@@ -654,10 +681,14 @@ public class PatrolAI : MonoBehaviour
 
     public void Activate()
     {
+        mutex.WaitOne();
+        
         isActive = true;
         navAgent.enabled = true;
         equipmentManager.GetEquipmentAI().Activate();
         RestartState();
+        
+        mutex.ReleaseMutex();
     }
 
     public void Deactivate()

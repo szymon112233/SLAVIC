@@ -2,16 +2,20 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GUIScript : MonoBehaviour {
+public class GUIScript : MonoBehaviour 
+{
+    private GameplayManager gameplayManager;
+
     public Text minionsText;
     public Text foodText;
-    public SquadManager squad;
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        minionsText.GetComponent<Text>().text = (squad.minions.Count+1).ToString();
+
+    void Start()
+    {
+        gameplayManager = FindObjectOfType<GameplayManager>();
+    }
+	void Update () 
+    {
+        minionsText.GetComponent<Text>().text = (gameplayManager.squadManager.minions.Count + 1).ToString();
+        foodText.GetComponent<Text>().text = (gameplayManager.GetFood()).ToString();
 	}
 }

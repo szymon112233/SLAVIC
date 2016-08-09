@@ -6,20 +6,29 @@ public class EnemyPatrol : MonoBehaviour
     public List<MinionControll> minions;
     public List<Vector3> defaultPatrolRoute;
     public float chaseDistance;
-    
+
+    private List<GameObject> currentTargets;
+    private bool chase = false;
     private TeamID teamID;
-    private GameObject currentTarget;
+
+    void Start()
+    {
+        currentTargets = new List<GameObject>();
+        RestoreOriginalPatrolRoute();
+    }
 
 	void Update () 
     {
         CleanDeadMinions();
-        if (currentTarget != null && Vector3.Distance(transform.position, currentTarget.transform.position) < chaseDistance)
+        UpdateTargets();
+        if (currentTargets.Count > 0)
         {
+            chase = true;
             ChaseCurrentTarget();
         }
-        else
+        else if(chase)
         {
-            currentTarget = null;
+            chase = false;
             RestoreOriginalPatrolRoute();
         }
 	}
@@ -40,11 +49,41 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
+    /**
+     * Usuwa z początku listy nieodpowiednie lub nieaktualne cele.
+     * */
+    private void UpdateTargets()
+    {
+        while(currentTargets.Count > 0)
+        {
+            if(!(CheckTarget(currentTargets[0])))
+            {
+                currentTargets.RemoveAt(0);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Sprawdza czy obiekt ciągle może być celem.
+     * */
+    private bool CheckTarget(GameObject target)
+    {
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) < chaseDistance && target.GetComponent<Health>() != null && target.GetComponent<Health>().IsAlive() && FindObjectOfType<GameplayManager>().teamManager.IsHostile(gameObject, target))
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void ChaseCurrentTarget()
     {
         for (int i = 0; i < minions.Count; i++)
         {
-            minions[i].GetPatrolAI().SetPatrolRoute(currentTarget.transform.position); 
+            minions[i].GetPatrolAI().SetPatrolRoute(currentTargets[0].transform.position); 
         }
     }
 
@@ -52,17 +91,28 @@ public class EnemyPatrol : MonoBehaviour
     {
         for (int i = 0; i < minions.Count; i++)
         {
-            minions[i].GetPatrolAI().SetPatrolRoute(defaultPatrolRoute);
+            if (defaultPatrolRoute.Count > 0)
+            {
+                minions[i].GetPatrolAI().SetPatrolRoute(defaultPatrolRoute);
+            }
+            else
+            {
+                minions[i].GetPatrolAI().SetPatrolRoute(transform.position);
+            }
         }
     }
 
-    void OnTriggerStay(Collider other)
+    /**
+     * Sprawdza czy w obszarze sa nowe cele.
+     * Jeśli tak to dodajemy je do listy.
+     * */
+    void OnTriggerEnter(Collider other)
     {
-        if (currentTarget == null)
+        if (other != null)
         {
-            if (FindObjectOfType<GameplayManager>().teamManager.IsHostile(gameObject, other.gameObject))
+            if(CheckTarget(other.gameObject))
             {
-                currentTarget = other.gameObject;
+                currentTargets.Add(other.gameObject);
             }
         }
     }

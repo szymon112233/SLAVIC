@@ -10,27 +10,21 @@ public class Food : MonoBehaviour {
 	void Awake ()
     {
         manager = FindObjectOfType<GameplayManager>();
-
 	}
 
     void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.GetComponent<TeamID>())
         {
-            if (other.gameObject.GetComponent<TeamID>().team == Team.FRIENDLY)
+            if (other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControlledMinion)
             {
                 if (manager)
-                    manager.SetFood(manager.GetFood() + 1);
+                {
+                    manager.IncreaseFood();
+                }
                 AudioSource.PlayClipAtPoint(clip, transform.position);
                 Destroy(transform.parent.gameObject);
             }
         }
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-	
-	}
 }

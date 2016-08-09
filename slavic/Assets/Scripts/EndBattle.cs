@@ -46,12 +46,15 @@ public class EndBattle : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<MinionControll>() != null && other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControll.controlledMinion)
+        if (!isVictory)
         {
-            if (!isEscape)
+            if (other.gameObject.GetComponent<MinionControll>() != null && other.gameObject.GetComponent<MinionControll>() == FindObjectOfType<GameplayManager>().playerControll.controlledMinion)
             {
-                isEscape = true;
-                FindObjectOfType<GameplayManager>().EndGame("Escaped");
+                if (!isEscape)
+                {
+                    isEscape = true;
+                    FindObjectOfType<GameplayManager>().EndGame("Escaped");
+                }
             }
         }
     }

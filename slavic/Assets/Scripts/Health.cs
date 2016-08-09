@@ -64,8 +64,6 @@ public class Health : MonoBehaviour
                 alive = false;
                 if (corpse != null)
                 {
-                    Vector3 up = new Vector3(transform.position.x, 10, transform.position.z);
-                    Vector3 directionToAim = (transform.position - up).normalized;
                     Instantiate(corpse, transform.position, transform.rotation);
                 }
             }
@@ -73,8 +71,6 @@ public class Health : MonoBehaviour
             {
                 if (fxManager != null)
                 {
-                    Debug.Log("FXManager");
-
                     fxManager.PlayHurtClip();
                     fxManager.PlayBloodSplatter();
                 }
