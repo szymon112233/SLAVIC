@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IdleStatesRandomChanges : StateMachineBehaviour {
+public class IdleStatesRandomChanges : StateMachineBehaviour 
+{
 
     public float changeStateChance = 0.5f;
     public float changesToIdle2Chance = 0.5f;

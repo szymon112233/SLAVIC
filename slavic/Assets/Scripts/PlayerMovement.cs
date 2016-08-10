@@ -13,11 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 500f;
     private Rigidbody playerRig;
     private FXManager fxManager;
-    private FurbyAnimatorScript animatorScript;
     private bool canStep = true;
     private SquadManager squadManager;
 
-	// Use this for initialization
 	void Start () 
     {
         fxManager = controlledMinion.GetComponentInChildren<FXManager>();
@@ -26,27 +24,8 @@ public class PlayerMovement : MonoBehaviour
         controlledMinion.GetComponentInChildren<Image>().enabled = true;
         currentCameraCamera = currentCamera.GetComponentInChildren<Camera>().gameObject.transform;
         squadManager = FindObjectOfType<GameplayManager>().squadManager;
-
-        animatorScript = controlledMinion.GetComponentInChildren<FurbyAnimatorScript>();
 	}
-
-    public void PosessMinion(MinionControll minion)
-    {
-        if (minion != null)
-        {
-            if (manager)
-            {
-                manager.SetScreenShake(true, 2, 0.8f, 0.05f);
-            }
-            controlledMinion = minion;
-            fxManager = minion.GetComponent<FXManager>();
-            playerRig = minion.GetComponent<Rigidbody>();
-            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
-            minion.GetComponentInChildren<Image>().enabled = true;
-        }
-    }
 	
-	// Update is called once per frame
 	void Update () 
     {
         if (controlledMinion != null && controlledMinion.GetComponent<MinionControll>().GetHealth().IsAlive())
@@ -64,7 +43,23 @@ public class PlayerMovement : MonoBehaviour
             PosessMinion(FindObjectOfType<GameplayManager>().playerControlledMinion);
         }
 	}
-       
+
+    public void PosessMinion(MinionControll minion)
+    {
+        if (minion != null)
+        {
+            if (manager)
+            {
+                manager.SetScreenShake(true, 2, 0.8f, 0.05f);
+            }
+            controlledMinion = minion;
+            fxManager = minion.GetComponent<FXManager>();
+            playerRig = minion.GetComponent<Rigidbody>();
+            controlledMinion.GetComponent<MinionControll>().GetPatrolAI().Deactivate();
+            minion.GetComponentInChildren<Image>().enabled = true;
+        }
+    }
+
     void Move() 
     {
         movementDirection.z = Input.GetAxisRaw("Vertical");
@@ -79,11 +74,6 @@ public class PlayerMovement : MonoBehaviour
                 canStep = false;
                 StartCoroutine("Step");
             }
-        }
-
-        if(animatorScript != null)
-        {
-            animatorScript.PlayWalkAnimationIfWalking(movementDirection);
         }
     }
 
