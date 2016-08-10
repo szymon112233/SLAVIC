@@ -67,6 +67,12 @@ public class GameplayManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (isPause)
+            {
+                isPause = false;
+                annoucmentText.text = previousAnnoucment;
+                Time.timeScale = 1;
+            }
             Application.LoadLevel("MainMenu");
         }
 	}
