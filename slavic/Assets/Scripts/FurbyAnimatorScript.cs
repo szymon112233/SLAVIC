@@ -8,8 +8,12 @@ public class FurbyAnimatorScript : MonoBehaviour {
     //public Sprite rightSprite;
     public Sprite leftSprite;
 
+    public int numberOfDirectionChangesPerSec = 16;
+
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+    private float directionChangeTimer;
 
 	void Awake()
     {
@@ -17,7 +21,17 @@ public class FurbyAnimatorScript : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         leftSprite = spriteRenderer.sprite;
+
+        directionChangeTimer = 0f;
     }        
+
+    void Update()
+    {
+        if(directionChangeTimer > 0)
+        {
+            directionChangeTimer -= Time.deltaTime;
+        }
+    }
 
 	public void PlayDeathAnimation()
     {
@@ -39,34 +53,29 @@ public class FurbyAnimatorScript : MonoBehaviour {
         animator.SetTrigger("Attack");
     }
 
-    public void PlayWalkAnimationIfWalking(Vector3 walk)
+    public void PlayWalkingAnimation(Vector3 walk)
     {
         if (!IsZeroVector(walk))
         {
             animator.SetBool("IsWalking", true);
+
+            if (directionChangeTimer <= 0f)
+            {                
+                if (IsRight(walk) && !animator.GetBool("WalkRight"))
+                {
+                    //SetSprite(rightSprite);
+
+                    SetFurbyDirection(true);
+                }
+
+                if (IsLeft(walk) && animator.GetBool("WalkRight"))
+                {
+                    SetSprite(leftSprite);
+                    SetFurbyDirection(false);
+                }
+            }
         }
-        else
-        {
-            animator.SetBool("IsWalking", false);
-        }
-
-        if (IsRight(walk))
-        {
-            //SetSprite(rightSprite);
-
-            animator.SetBool("WalkRight", true);
-
-            spriteRenderer.flipX = true;
-        }
-
-        if (IsLeft(walk))
-        {
-            SetSprite(leftSprite);
-
-            animator.SetBool("WalkRight", false);
-
-            spriteRenderer.flipX = false;
-        }
+        
         /*
         if (IsUp(walk))
             SetSprite(upSprite);
@@ -76,10 +85,22 @@ public class FurbyAnimatorScript : MonoBehaviour {
             */
     }
 
+    public void StopWalkingAnimation()
+    {
+        animator.SetBool("IsWalking", false);
+    }
+
     private void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
-    }    
+    } 
+    
+    private void SetFurbyDirection(bool IsRight)
+    {
+        animator.SetBool("WalkRight", IsRight);
+        spriteRenderer.flipX = IsRight;
+        directionChangeTimer += (1f / numberOfDirectionChangesPerSec);
+    }
 
     private bool IsZeroVector(Vector3 vec)
     {

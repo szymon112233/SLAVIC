@@ -39,7 +39,7 @@ public class MinionControll : MonoBehaviour
         else
         {
             //FIXME: Animacje powodują zmianę pozycji sprite miniona. Dochodzi również do spadku wydajności.
-            //MoveAnimation();
+            MoveAnimation();
         }
     }
 
@@ -49,8 +49,12 @@ public class MinionControll : MonoBehaviour
         {
             if (transform.position != previousPosition)
             {
-                animatorScript.PlayWalkAnimationIfWalking(transform.position - previousPosition);
+                animatorScript.PlayWalkingAnimation(transform.position - previousPosition);
                 previousPosition = transform.position;
+            }
+            else
+            {
+                animatorScript.StopWalkingAnimation();
             }
         }
     }
